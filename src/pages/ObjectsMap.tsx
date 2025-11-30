@@ -55,6 +55,7 @@ const ObjectsMap = () => {
   const [hoveredObject, setHoveredObject] = useState<number | null>(null);
   const [selectedObject, setSelectedObject] = useState<ObjectMarker | null>(null);
   const [isInfoDialogOpen, setIsInfoDialogOpen] = useState(false);
+  const [isEditMode, setIsEditMode] = useState(false);
   const [selectedType, setSelectedType] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
@@ -155,6 +156,14 @@ const ObjectsMap = () => {
             </p>
           </div>
           <div className="flex gap-2">
+            <Button 
+              variant={isEditMode ? "default" : "outline"} 
+              onClick={() => setIsEditMode(!isEditMode)} 
+              className="gap-2"
+            >
+              <Icon name="Edit" size={16} />
+              {isEditMode ? 'Готово' : 'Редактировать'}
+            </Button>
             <Button variant="outline" onClick={handleResetToDefault} className="gap-2">
               <Icon name="RotateCcw" size={16} />
               Сбросить
@@ -225,22 +234,57 @@ const ObjectsMap = () => {
                 {filteredObjects.map((obj) => (
                   <div
                     key={obj.id}
-                    className={`absolute w-4 h-4 rounded-full cursor-pointer transition-all ${getTypeColor(obj.type)} ${
-                      hoveredObject === obj.id ? 'scale-150 ring-4 ring-white shadow-lg' : 'scale-100'
-                    }`}
+                    className="absolute"
                     style={{
                       left: `${(obj.x / 1500) * 100}%`,
                       top: `${(obj.y / 700) * 100}%`,
                       transform: 'translate(-50%, -50%)'
                     }}
-                    onMouseEnter={() => setHoveredObject(obj.id)}
-                    onMouseLeave={() => setHoveredObject(null)}
-                    onClick={() => {
-                      setSelectedObject(obj);
-                      setIsInfoDialogOpen(true);
-                    }}
-                    title={`${obj.name} - ${getTypeLabel(obj.type)}`}
-                  />
+                  >
+                    {isEditMode ? (
+                      <div className="flex items-center gap-1 bg-white rounded-full shadow-lg p-1">
+                        <Button
+                          size="sm"
+                          variant="ghost"
+                          className="h-7 w-7 p-0 rounded-full"
+                          onClick={() => {
+                            setEditingObject({ ...obj });
+                            setIsEditDialogOpen(true);
+                          }}
+                          title="Редактировать"
+                        >
+                          <Icon name="Edit" size={14} />
+                        </Button>
+                        <div className={`w-4 h-4 rounded-full ${getTypeColor(obj.type)}`} />
+                        <Button
+                          size="sm"
+                          variant="ghost"
+                          className="h-7 w-7 p-0 rounded-full text-destructive hover:text-destructive"
+                          onClick={() => {
+                            if (confirm(`Удалить объект "${obj.name}"?`)) {
+                              handleDeleteObject(obj.id);
+                            }
+                          }}
+                          title="Удалить"
+                        >
+                          <Icon name="Trash2" size={14} />
+                        </Button>
+                      </div>
+                    ) : (
+                      <div
+                        className={`w-4 h-4 rounded-full cursor-pointer transition-all ${getTypeColor(obj.type)} ${
+                          hoveredObject === obj.id ? 'scale-150 ring-4 ring-white shadow-lg' : 'scale-100'
+                        }`}
+                        onMouseEnter={() => setHoveredObject(obj.id)}
+                        onMouseLeave={() => setHoveredObject(null)}
+                        onClick={() => {
+                          setSelectedObject(obj);
+                          setIsInfoDialogOpen(true);
+                        }}
+                        title={`${obj.name} - ${getTypeLabel(obj.type)}`}
+                      />
+                    )}
+                  </div>
                 ))}
               </div>
             </CardContent>
