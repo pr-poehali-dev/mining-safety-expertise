@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -21,25 +21,38 @@ interface ObjectMarker {
   region?: string;
 }
 
+const STORAGE_KEY = 'objects-map-data';
+
+const defaultObjects: ObjectMarker[] = [
+  { id: 1, name: 'Карьер Кузнецкий', x: 180, y: 420, type: 'project', region: 'Кемеровская обл.' },
+  { id: 2, name: 'ОФ Абаканская', x: 750, y: 480, type: 'project', region: 'Республика Хакасия' },
+  { id: 3, name: 'Шахта Воркутинская', x: 540, y: 340, type: 'expertise', region: 'Республика Коми' },
+  { id: 4, name: 'ГОК Удоканский', x: 1250, y: 490, type: 'research', region: 'Забайкальский край' },
+  { id: 5, name: 'Карьер Мурманский', x: 200, y: 430, type: 'project', region: 'Мурманская обл.' },
+  { id: 6, name: 'ОФ Магаданская', x: 1380, y: 450, type: 'expertise', region: 'Магаданская обл.' },
+  { id: 7, name: 'Рудник Полярный', x: 800, y: 350, type: 'research', region: 'Красноярский край' },
+  { id: 8, name: 'Карьер Южно-Уральский', x: 380, y: 500, type: 'project', region: 'Челябинская обл.' },
+  { id: 9, name: 'ГОК Иркутский', x: 1000, y: 560, type: 'expertise', region: 'Иркутская обл.' },
+  { id: 10, name: 'Шахта Ростовская', x: 220, y: 560, type: 'research', region: 'Ростовская обл.' },
+  { id: 11, name: 'Карьер Якутский', x: 1200, y: 350, type: 'project', region: 'Республика Саха' },
+  { id: 12, name: 'ОФ Белгородская', x: 240, y: 520, type: 'expertise', region: 'Белгородская обл.' },
+  { id: 13, name: 'ГОК Норильский', x: 700, y: 280, type: 'project', region: 'Красноярский край' },
+  { id: 14, name: 'Шахта Донецкая', x: 240, y: 550, type: 'expertise', region: 'Ростовская обл.' },
+  { id: 15, name: 'Карьер Приморский', x: 1350, y: 540, type: 'research', region: 'Приморский край' },
+];
+
+const loadObjectsFromStorage = (): ObjectMarker[] => {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    return saved ? JSON.parse(saved) : defaultObjects;
+  } catch {
+    return defaultObjects;
+  }
+};
+
 const ObjectsMap = () => {
   const navigate = useNavigate();
-  const [objects, setObjects] = useState<ObjectMarker[]>([
-    { id: 1, name: 'Карьер Кузнецкий', x: 180, y: 420, type: 'project', region: 'Кемеровская обл.' },
-    { id: 2, name: 'ОФ Абаканская', x: 750, y: 480, type: 'project', region: 'Республика Хакасия' },
-    { id: 3, name: 'Шахта Воркутинская', x: 540, y: 340, type: 'expertise', region: 'Республика Коми' },
-    { id: 4, name: 'ГОК Удоканский', x: 1250, y: 490, type: 'research', region: 'Забайкальский край' },
-    { id: 5, name: 'Карьер Мурманский', x: 200, y: 430, type: 'project', region: 'Мурманская обл.' },
-    { id: 6, name: 'ОФ Магаданская', x: 1380, y: 450, type: 'expertise', region: 'Магаданская обл.' },
-    { id: 7, name: 'Рудник Полярный', x: 800, y: 350, type: 'research', region: 'Красноярский край' },
-    { id: 8, name: 'Карьер Южно-Уральский', x: 380, y: 500, type: 'project', region: 'Челябинская обл.' },
-    { id: 9, name: 'ГОК Иркутский', x: 1000, y: 560, type: 'expertise', region: 'Иркутская обл.' },
-    { id: 10, name: 'Шахта Ростовская', x: 220, y: 560, type: 'research', region: 'Ростовская обл.' },
-    { id: 11, name: 'Карьер Якутский', x: 1200, y: 350, type: 'project', region: 'Республика Саха' },
-    { id: 12, name: 'ОФ Белгородская', x: 240, y: 520, type: 'expertise', region: 'Белгородская обл.' },
-    { id: 13, name: 'ГОК Норильский', x: 700, y: 280, type: 'project', region: 'Красноярский край' },
-    { id: 14, name: 'Шахта Донецкая', x: 240, y: 550, type: 'expertise', region: 'Ростовская обл.' },
-    { id: 15, name: 'Карьер Приморский', x: 1350, y: 540, type: 'research', region: 'Приморский край' },
-  ]);
+  const [objects, setObjects] = useState<ObjectMarker[]>(loadObjectsFromStorage);
   const [hoveredObject, setHoveredObject] = useState<number | null>(null);
   const [selectedType, setSelectedType] = useState<string>('all');
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
@@ -76,6 +89,10 @@ const ObjectsMap = () => {
     }
   };
 
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(objects));
+  }, [objects]);
+
   const handleAddObject = () => {
     if (!newObject.name) return;
     const obj: ObjectMarker = {
@@ -101,6 +118,13 @@ const ObjectsMap = () => {
 
   const handleDeleteObject = (id: number) => {
     setObjects(objects.filter(obj => obj.id !== id));
+  };
+
+  const handleResetToDefault = () => {
+    if (confirm('Вы уверены? Все изменения будут сброшены к исходному состоянию.')) {
+      setObjects(defaultObjects);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(defaultObjects));
+    }
   };
 
   const openEditDialog = (obj: ObjectMarker) => {
@@ -140,10 +164,16 @@ const ObjectsMap = () => {
               География реализованных проектов по всей России
             </p>
           </div>
-          <Button onClick={() => setIsAddDialogOpen(true)} className="gap-2">
-            <Icon name="Plus" size={18} />
-            Добавить объект
-          </Button>
+          <div className="flex gap-2">
+            <Button variant="outline" onClick={handleResetToDefault} className="gap-2">
+              <Icon name="RotateCcw" size={16} />
+              Сбросить
+            </Button>
+            <Button onClick={() => setIsAddDialogOpen(true)} className="gap-2">
+              <Icon name="Plus" size={18} />
+              Добавить
+            </Button>
+          </div>
         </div>
 
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
