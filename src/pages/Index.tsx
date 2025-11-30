@@ -91,7 +91,7 @@ const Index = () => {
               <img 
                 src="https://cdn.poehali.dev/files/ab6c9bc2-36fd-4078-8b68-ed2d7a95c50b.png" 
                 alt="СПЭК" 
-                className="h-9 w-9 object-contain flex-shrink-0"
+                className="h-9 w-9 object-contain flex-shrink-0 brightness-0 invert"
               />
               <div className="hidden lg:flex flex-col">
                 <span className="font-heading font-bold leading-tight text-white text-[10px]">Сибирская Проектная</span>
