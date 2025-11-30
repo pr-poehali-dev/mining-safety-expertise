@@ -1,25 +1,8 @@
 import { useState, useEffect } from 'react';
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
-import Icon from "@/components/ui/icon";
-import RussiaMapSVG from "@/components/objects-map/RussiaMapSVG";
 import IndexHeader from '@/components/index/IndexHeader';
-
-interface ObjectMarker {
-  id: number;
-  name: string;
-  x: number;
-  y: number;
-  description?: string;
-  type?: 'project' | 'expertise' | 'research';
-  region?: string;
-}
+import MapControls from '@/components/objects-map/MapControls';
+import MapCanvas from '@/components/objects-map/MapCanvas';
+import MapDialogs, { ObjectMarker } from '@/components/objects-map/MapDialogs';
 
 const STORAGE_KEY = 'objects-map-data';
 
@@ -133,18 +116,6 @@ const ObjectsMap = () => {
     setObjects(objects.filter(obj => obj.id !== id));
   };
 
-  const handleResetToDefault = () => {
-    if (confirm('Вы уверены? Все изменения будут сброшены к исходному состоянию.')) {
-      setObjects(defaultObjects);
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(defaultObjects));
-    }
-  };
-
-  const openEditDialog = (obj: ObjectMarker) => {
-    setEditingObject({ ...obj });
-    setIsEditDialogOpen(true);
-  };
-
   const handleDragStart = (e: React.MouseEvent, objId: number) => {
     e.preventDefault();
     setDraggingObject(objId);
@@ -177,401 +148,54 @@ const ObjectsMap = () => {
       <IndexHeader />
 
       <main className="container py-8">
-        <div className="flex flex-col lg:flex-row gap-4 items-start mb-6">
-          <div className="flex-1">
-            <h1 className="font-heading text-4xl md:text-5xl font-bold text-primary mb-2">Карта объектов</h1>
-            <p className="text-lg text-muted-foreground">
-              География реализованных проектов по всей России
-            </p>
-          </div>
-          <div className="flex gap-2">
-            <Button 
-              variant={isEditMode ? "default" : "outline"} 
-              onClick={() => setIsEditMode(!isEditMode)} 
-              className="gap-2"
-            >
-              <Icon name="Edit" size={16} />
-              {isEditMode ? 'Готово' : 'Редактировать'}
-            </Button>
-            <Button onClick={() => setIsAddDialogOpen(true)} className="gap-2">
-              <Icon name="Plus" size={18} />
-              Добавить
-            </Button>
-          </div>
-        </div>
+        <MapControls
+          isEditMode={isEditMode}
+          setIsEditMode={setIsEditMode}
+          setIsAddDialogOpen={setIsAddDialogOpen}
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+          selectedType={selectedType}
+          setSelectedType={setSelectedType}
+          objects={objects}
+        />
 
-        <div className="mb-6">
-          <div className="relative max-w-md">
-            <Icon name="Search" size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
-            <Input
-              type="text"
-              placeholder="Поиск по названию, региону или описанию..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10"
-            />
-          </div>
-        </div>
+        <MapCanvas
+          filteredObjects={filteredObjects}
+          isEditMode={isEditMode}
+          draggingObject={draggingObject}
+          hoveredObject={hoveredObject}
+          setHoveredObject={setHoveredObject}
+          setSelectedObject={setSelectedObject}
+          setIsInfoDialogOpen={setIsInfoDialogOpen}
+          setEditingObject={setEditingObject}
+          setIsEditDialogOpen={setIsEditDialogOpen}
+          handleDeleteObject={handleDeleteObject}
+          handleDragStart={handleDragStart}
+          handleDragMove={handleDragMove}
+          handleDragEnd={handleDragEnd}
+          getTypeColor={getTypeColor}
+          getTypeLabel={getTypeLabel}
+        />
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-          <Button
-            variant={selectedType === 'all' ? 'default' : 'outline'}
-            onClick={() => setSelectedType('all')}
-            className="w-full"
-          >
-            Все объекты ({objects.length})
-          </Button>
-          <Button
-            variant={selectedType === 'project' ? 'default' : 'outline'}
-            onClick={() => setSelectedType('project')}
-            className="w-full flex items-center justify-center gap-2"
-          >
-            <div className="w-3 h-3 rounded-full bg-green-500" />
-            Проектирование ({objects.filter(o => o.type === 'project').length})
-          </Button>
-          <Button
-            variant={selectedType === 'expertise' ? 'default' : 'outline'}
-            onClick={() => setSelectedType('expertise')}
-            className="w-full flex items-center justify-center gap-2"
-          >
-            <div className="w-3 h-3 rounded-full bg-red-500" />
-            Экспертиза ({objects.filter(o => o.type === 'expertise').length})
-          </Button>
-          <Button
-            variant={selectedType === 'research' ? 'default' : 'outline'}
-            onClick={() => setSelectedType('research')}
-            className="w-full flex items-center justify-center gap-2"
-          >
-            <div className="w-3 h-3 rounded-full bg-amber-500" />
-            Изыскания ({objects.filter(o => o.type === 'research').length})
-          </Button>
-        </div>
-
-        <div className="max-w-6xl mx-auto">
-          <Card>
-            <CardContent className="p-4">
-              <div 
-                className="relative rounded-lg overflow-hidden map-container"
-                onMouseMove={isEditMode ? handleDragMove : undefined}
-                onMouseUp={isEditMode ? handleDragEnd : undefined}
-                onMouseLeave={isEditMode ? handleDragEnd : undefined}
-              >
-                <img 
-                  src="https://cdn.poehali.dev/files/73dddc8d-5a17-4785-a7f2-5a3372646b73.png"
-                  alt="Карта России с объектами"
-                  className="w-full h-auto"
-                />
-                {filteredObjects.map((obj) => (
-                  <div
-                    key={obj.id}
-                    className="absolute"
-                    style={{
-                      left: `${(obj.x / 1500) * 100}%`,
-                      top: `${(obj.y / 700) * 100}%`,
-                      transform: 'translate(-50%, -50%)'
-                    }}
-                  >
-                    {isEditMode ? (
-                      <div className="flex items-center gap-1 bg-white rounded-full shadow-lg p-1">
-                        <Button
-                          size="sm"
-                          variant="ghost"
-                          className="h-7 w-7 p-0 rounded-full"
-                          onClick={() => {
-                            setEditingObject({ ...obj });
-                            setIsEditDialogOpen(true);
-                          }}
-                          title="Редактировать"
-                        >
-                          <Icon name="Edit" size={14} />
-                        </Button>
-                        <div 
-                          className={`w-4 h-4 rounded-full cursor-move ${getTypeColor(obj.type)} ${draggingObject === obj.id ? 'ring-2 ring-white shadow-lg scale-125' : ''}`}
-                          onMouseDown={(e) => handleDragStart(e, obj.id)}
-                          title="Перетащить"
-                        />
-                        <Button
-                          size="sm"
-                          variant="ghost"
-                          className="h-7 w-7 p-0 rounded-full text-destructive hover:text-destructive"
-                          onClick={() => {
-                            if (confirm(`Удалить объект "${obj.name}"?`)) {
-                              handleDeleteObject(obj.id);
-                            }
-                          }}
-                          title="Удалить"
-                        >
-                          <Icon name="Trash2" size={14} />
-                        </Button>
-                      </div>
-                    ) : (
-                      <div
-                        className={`w-4 h-4 rounded-full cursor-pointer transition-all ${getTypeColor(obj.type)} ${
-                          hoveredObject === obj.id ? 'scale-150 ring-4 ring-white shadow-lg' : 'scale-100'
-                        }`}
-                        onMouseEnter={() => setHoveredObject(obj.id)}
-                        onMouseLeave={() => setHoveredObject(null)}
-                        onClick={() => {
-                          setSelectedObject(obj);
-                          setIsInfoDialogOpen(true);
-                        }}
-                        title={`${obj.name} - ${getTypeLabel(obj.type)}`}
-                      />
-                    )}
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-        </div>
+        <MapDialogs
+          isAddDialogOpen={isAddDialogOpen}
+          setIsAddDialogOpen={setIsAddDialogOpen}
+          isEditDialogOpen={isEditDialogOpen}
+          setIsEditDialogOpen={setIsEditDialogOpen}
+          isInfoDialogOpen={isInfoDialogOpen}
+          setIsInfoDialogOpen={setIsInfoDialogOpen}
+          newObject={newObject}
+          setNewObject={setNewObject}
+          editingObject={editingObject}
+          setEditingObject={setEditingObject}
+          selectedObject={selectedObject}
+          handleAddObject={handleAddObject}
+          handleEditObject={handleEditObject}
+          handleDeleteObject={handleDeleteObject}
+          getTypeLabel={getTypeLabel}
+          getTypeColor={getTypeColor}
+        />
       </main>
-
-      <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
-        <DialogContent className="max-w-md">
-          <DialogHeader>
-            <DialogTitle>Добавить объект на карту</DialogTitle>
-          </DialogHeader>
-          <div className="space-y-4">
-            <div>
-              <Label htmlFor="add-name">Название объекта *</Label>
-              <Input
-                id="add-name"
-                value={newObject.name}
-                onChange={(e) => setNewObject({ ...newObject, name: e.target.value })}
-                placeholder="Например: Карьер Северный"
-              />
-            </div>
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <Label htmlFor="add-x">Координата X</Label>
-                <Input
-                  id="add-x"
-                  type="number"
-                  value={newObject.x}
-                  onChange={(e) => setNewObject({ ...newObject, x: Number(e.target.value) })}
-                />
-              </div>
-              <div>
-                <Label htmlFor="add-y">Координата Y</Label>
-                <Input
-                  id="add-y"
-                  type="number"
-                  value={newObject.y}
-                  onChange={(e) => setNewObject({ ...newObject, y: Number(e.target.value) })}
-                />
-              </div>
-            </div>
-            <div>
-              <Label htmlFor="add-type">Тип работ</Label>
-              <Select
-                value={newObject.type}
-                onValueChange={(value) => setNewObject({ ...newObject, type: value as 'project' | 'expertise' | 'research' })}
-              >
-                <SelectTrigger id="add-type">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="project">
-                    <div className="flex items-center gap-2">
-                      <div className="w-3 h-3 rounded-full bg-green-500" />
-                      Проектирование
-                    </div>
-                  </SelectItem>
-                  <SelectItem value="expertise">
-                    <div className="flex items-center gap-2">
-                      <div className="w-3 h-3 rounded-full bg-red-500" />
-                      Экспертиза
-                    </div>
-                  </SelectItem>
-                  <SelectItem value="research">
-                    <div className="flex items-center gap-2">
-                      <div className="w-3 h-3 rounded-full bg-amber-500" />
-                      Изыскания
-                    </div>
-                  </SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            <div>
-              <Label htmlFor="add-region">Регион</Label>
-              <Input
-                id="add-region"
-                value={newObject.region}
-                onChange={(e) => setNewObject({ ...newObject, region: e.target.value })}
-                placeholder="Например: Кемеровская обл."
-              />
-            </div>
-            <div>
-              <Label htmlFor="add-description">Описание</Label>
-              <Textarea
-                id="add-description"
-                value={newObject.description}
-                onChange={(e) => setNewObject({ ...newObject, description: e.target.value })}
-                placeholder="Краткое описание объекта"
-                rows={3}
-              />
-            </div>
-          </div>
-          <DialogFooter>
-            <Button variant="outline" onClick={() => setIsAddDialogOpen(false)}>
-              Отмена
-            </Button>
-            <Button onClick={handleAddObject} disabled={!newObject.name}>
-              Добавить
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-
-      <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
-        <DialogContent className="max-w-md">
-          <DialogHeader>
-            <DialogTitle>Редактировать объект</DialogTitle>
-          </DialogHeader>
-          {editingObject && (
-            <div className="space-y-4">
-              <div>
-                <Label htmlFor="edit-name">Название объекта *</Label>
-                <Input
-                  id="edit-name"
-                  value={editingObject.name}
-                  onChange={(e) => setEditingObject({ ...editingObject, name: e.target.value })}
-                />
-              </div>
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <Label htmlFor="edit-x">Координата X</Label>
-                  <Input
-                    id="edit-x"
-                    type="number"
-                    value={editingObject.x}
-                    onChange={(e) => setEditingObject({ ...editingObject, x: Number(e.target.value) })}
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="edit-y">Координата Y</Label>
-                  <Input
-                    id="edit-y"
-                    type="number"
-                    value={editingObject.y}
-                    onChange={(e) => setEditingObject({ ...editingObject, y: Number(e.target.value) })}
-                  />
-                </div>
-              </div>
-              <div>
-                <Label htmlFor="edit-type">Тип работ</Label>
-                <Select
-                  value={editingObject.type}
-                  onValueChange={(value) => setEditingObject({ ...editingObject, type: value as 'project' | 'expertise' | 'research' })}
-                >
-                  <SelectTrigger id="edit-type">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="project">
-                      <div className="flex items-center gap-2">
-                        <div className="w-3 h-3 rounded-full bg-green-500" />
-                        Проектирование
-                      </div>
-                    </SelectItem>
-                    <SelectItem value="expertise">
-                      <div className="flex items-center gap-2">
-                        <div className="w-3 h-3 rounded-full bg-red-500" />
-                        Экспертиза
-                      </div>
-                    </SelectItem>
-                    <SelectItem value="research">
-                      <div className="flex items-center gap-2">
-                        <div className="w-3 h-3 rounded-full bg-amber-500" />
-                        Изыскания
-                      </div>
-                    </SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-              <div>
-                <Label htmlFor="edit-region">Регион</Label>
-                <Input
-                  id="edit-region"
-                  value={editingObject.region}
-                  onChange={(e) => setEditingObject({ ...editingObject, region: e.target.value })}
-                />
-              </div>
-              <div>
-                <Label htmlFor="edit-description">Описание</Label>
-                <Textarea
-                  id="edit-description"
-                  value={editingObject.description}
-                  onChange={(e) => setEditingObject({ ...editingObject, description: e.target.value })}
-                  rows={3}
-                />
-              </div>
-            </div>
-          )}
-          <DialogFooter className="flex-row gap-2 sm:justify-between">
-            <Button
-              variant="destructive"
-              onClick={() => {
-                if (editingObject && confirm(`Удалить объект "${editingObject.name}"?`)) {
-                  handleDeleteObject(editingObject.id);
-                  setIsEditDialogOpen(false);
-                  setEditingObject(null);
-                }
-              }}
-              className="gap-2"
-            >
-              <Icon name="Trash2" size={16} />
-              Удалить
-            </Button>
-            <div className="flex gap-2">
-              <Button variant="outline" onClick={() => setIsEditDialogOpen(false)}>
-                Отмена
-              </Button>
-              <Button onClick={handleEditObject}>
-                Сохранить
-              </Button>
-            </div>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-
-      {/* Info Dialog */}
-      <Dialog open={isInfoDialogOpen} onOpenChange={setIsInfoDialogOpen}>
-        <DialogContent className="sm:max-w-md">
-          <DialogHeader>
-            <DialogTitle className="flex items-center gap-2">
-              <div className={`w-3 h-3 rounded-full ${getTypeColor(selectedObject?.type)}`} />
-              {selectedObject?.name}
-            </DialogTitle>
-          </DialogHeader>
-          <div className="space-y-4">
-            <div>
-              <Label className="text-sm font-medium text-muted-foreground">Тип объекта</Label>
-              <p className="text-base mt-1">{selectedObject && getTypeLabel(selectedObject.type)}</p>
-            </div>
-            {selectedObject?.region && (
-              <div>
-                <Label className="text-sm font-medium text-muted-foreground">Регион</Label>
-                <p className="text-base mt-1">{selectedObject.region}</p>
-              </div>
-            )}
-            {selectedObject?.description && (
-              <div>
-                <Label className="text-sm font-medium text-muted-foreground">Описание</Label>
-                <p className="text-base mt-1">{selectedObject.description}</p>
-              </div>
-            )}
-          </div>
-          <DialogFooter>
-            <Button
-              variant="outline"
-              onClick={() => setIsInfoDialogOpen(false)}
-            >
-              Закрыть
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
     </div>
   );
 };
