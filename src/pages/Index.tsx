@@ -142,6 +142,12 @@ const Index = () => {
                 Вакансии
               </button>
               <button
+                onClick={() => navigate('/objects-map')}
+                className="text-base font-medium transition-colors hover:text-secondary whitespace-nowrap text-white/90"
+              >
+                Карта объектов
+              </button>
+              <button
                 onClick={() => navigate('/contacts')}
                 className="text-base font-medium transition-colors hover:text-secondary whitespace-nowrap text-white/90"
               >

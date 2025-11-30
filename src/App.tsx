@@ -10,6 +10,7 @@ import Services from "./pages/Services";
 import Certificates from "./pages/Certificates";
 import News from "./pages/News";
 import Vacancies from "./pages/Vacancies";
+import ObjectsMap from "./pages/ObjectsMap";
 import Contacts from "./pages/Contacts";
 import NotFound from "./pages/NotFound";
 
@@ -28,6 +29,7 @@ const App = () => (
           <Route path="/certificates" element={<Certificates />} />
           <Route path="/news" element={<News />} />
           <Route path="/vacancies" element={<Vacancies />} />
+          <Route path="/objects-map" element={<ObjectsMap />} />
           <Route path="/contacts" element={<Contacts />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
