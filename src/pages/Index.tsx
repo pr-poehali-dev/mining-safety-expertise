@@ -418,7 +418,7 @@ const Index = () => {
                 />
                 <div className="flex flex-col">
                   <span className="font-heading text-sm font-bold leading-tight">Сибирская Проектная</span>
-                  <span className="font-heading text-sm font-bold leading-tight text-white/90">Экспертная Компания (СПЭК)</span>
+                  <span className="font-heading text-sm font-bold leading-tight text-white/90">Экспертная Компания</span>
                 </div>
               </div>
               <p className="text-white/80 text-sm">
