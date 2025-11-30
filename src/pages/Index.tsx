@@ -88,7 +88,7 @@ const Index = () => {
         <header className="sticky top-0 z-20 w-full bg-primary shadow-sm">
           <div className="container flex h-24 items-center gap-6">
             <div className="flex items-center gap-4">
-              <div className="h-16 w-16 flex-shrink-0 bg-white rounded flex items-center justify-center p-2">
+              <div className="h-16 w-16 flex-shrink-0 rounded flex items-center justify-center p-2 rounded-0 bg-[#ffffff] px-0 py-0">
                 <img 
                   src="https://cdn.poehali.dev/files/ab6c9bc2-36fd-4078-8b68-ed2d7a95c50b.png" 
                   alt="СПЭК" 
