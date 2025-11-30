@@ -89,9 +89,9 @@ const Index = () => {
         <div className="container flex h-16 items-center justify-between">
           <div className="flex items-center gap-4">
             <img 
-              src="https://cdn.poehali.dev/projects/db431dda-a896-493b-8d5f-c8ce3ef9966e/files/c68dadf0-85b7-44dc-87ce-3f6bf2b8795a.jpg" 
+              src="https://cdn.poehali.dev/files/55c85bd5-dd2e-4641-94a3-c905f750a895.JPG" 
               alt="СПЭК" 
-              className="h-14 w-20 object-contain"
+              className="h-14 w-20 object-contain brightness-100 contrast-125"
             />
             <div className="flex flex-col">
               <span className="font-heading font-extrabold leading-tight mx-0 px-0 py-0 my-0 text-[#000000] text-xs">Сибирская Проектная</span>
@@ -441,9 +441,9 @@ const Index = () => {
             <div>
               <div className="flex items-center gap-2 mb-4">
                 <img 
-                  src="https://cdn.poehali.dev/projects/db431dda-a896-493b-8d5f-c8ce3ef9966e/files/c68dadf0-85b7-44dc-87ce-3f6bf2b8795a.jpg" 
+                  src="https://cdn.poehali.dev/files/55c85bd5-dd2e-4641-94a3-c905f750a895.JPG" 
                   alt="СПЭК" 
-                  className="h-8 w-10 object-contain brightness-0 invert"
+                  className="h-8 w-8 object-contain brightness-0 invert"
                 />
                 <span className="font-heading text-lg font-bold">СПЭК</span>
               </div>
