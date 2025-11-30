@@ -484,25 +484,12 @@ const ObjectsMap = () => {
               </div>
             )}
           </div>
-          <DialogFooter className="gap-2">
+          <DialogFooter>
             <Button
               variant="outline"
               onClick={() => setIsInfoDialogOpen(false)}
             >
               Закрыть
-            </Button>
-            <Button
-              onClick={() => {
-                if (selectedObject) {
-                  setEditingObject({ ...selectedObject });
-                  setIsInfoDialogOpen(false);
-                  setIsEditDialogOpen(true);
-                }
-              }}
-              className="gap-2"
-            >
-              <Icon name="Edit" size={16} />
-              Редактировать
             </Button>
           </DialogFooter>
         </DialogContent>
