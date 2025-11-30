@@ -2,6 +2,11 @@ import { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
 import { useNavigate } from "react-router-dom";
 import Icon from "@/components/ui/icon";
 import RussiaMapSVG from "@/components/objects-map/RussiaMapSVG";
@@ -18,7 +23,7 @@ interface ObjectMarker {
 
 const ObjectsMap = () => {
   const navigate = useNavigate();
-  const [objects] = useState<ObjectMarker[]>([
+  const [objects, setObjects] = useState<ObjectMarker[]>([
     { id: 1, name: 'Карьер Кузнецкий', x: 180, y: 420, type: 'project', region: 'Кемеровская обл.' },
     { id: 2, name: 'ОФ Абаканская', x: 750, y: 480, type: 'project', region: 'Республика Хакасия' },
     { id: 3, name: 'Шахта Воркутинская', x: 540, y: 340, type: 'expertise', region: 'Республика Коми' },
@@ -37,6 +42,17 @@ const ObjectsMap = () => {
   ]);
   const [hoveredObject, setHoveredObject] = useState<number | null>(null);
   const [selectedType, setSelectedType] = useState<string>('all');
+  const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  const [editingObject, setEditingObject] = useState<ObjectMarker | null>(null);
+  const [newObject, setNewObject] = useState<Partial<ObjectMarker>>({
+    name: '',
+    x: 700,
+    y: 400,
+    type: 'project',
+    region: '',
+    description: ''
+  });
 
   const filteredObjects = selectedType === 'all' 
     ? objects 
@@ -58,6 +74,38 @@ const ObjectsMap = () => {
       case 'research': return 'bg-amber-500';
       default: return 'bg-blue-500';
     }
+  };
+
+  const handleAddObject = () => {
+    if (!newObject.name) return;
+    const obj: ObjectMarker = {
+      id: Date.now(),
+      name: newObject.name,
+      x: newObject.x || 700,
+      y: newObject.y || 400,
+      type: (newObject.type as 'project' | 'expertise' | 'research') || 'project',
+      region: newObject.region,
+      description: newObject.description
+    };
+    setObjects([...objects, obj]);
+    setNewObject({ name: '', x: 700, y: 400, type: 'project', region: '', description: '' });
+    setIsAddDialogOpen(false);
+  };
+
+  const handleEditObject = () => {
+    if (!editingObject) return;
+    setObjects(objects.map(obj => obj.id === editingObject.id ? editingObject : obj));
+    setEditingObject(null);
+    setIsEditDialogOpen(false);
+  };
+
+  const handleDeleteObject = (id: number) => {
+    setObjects(objects.filter(obj => obj.id !== id));
+  };
+
+  const openEditDialog = (obj: ObjectMarker) => {
+    setEditingObject({ ...obj });
+    setIsEditDialogOpen(true);
   };
 
   return (
@@ -92,6 +140,10 @@ const ObjectsMap = () => {
               География реализованных проектов по всей России
             </p>
           </div>
+          <Button onClick={() => setIsAddDialogOpen(true)} className="gap-2">
+            <Icon name="Plus" size={18} />
+            Добавить объект
+          </Button>
         </div>
 
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
@@ -156,7 +208,7 @@ const ObjectsMap = () => {
                   {filteredObjects.map((obj) => (
                     <div
                       key={obj.id}
-                      className={`p-3 rounded-lg border cursor-pointer transition-all ${
+                      className={`p-3 rounded-lg border transition-all ${
                         hoveredObject === obj.id
                           ? 'bg-primary/5 border-primary shadow-sm'
                           : 'bg-background hover:bg-accent'
@@ -178,6 +230,24 @@ const ObjectsMap = () => {
                             </div>
                           )}
                         </div>
+                        <div className="flex gap-1">
+                          <Button
+                Center size="sm"
+                            variant="ghost"
+                            onClick={() => openEditDialog(obj)}
+                            className="h-8 w-8 p-0"
+                          >
+                            <Icon name="Edit" size={14} />
+                          </Button>
+                          <Button
+                            size="sm"
+                            variant="ghost"
+                            onClick={() => handleDeleteObject(obj.id)}
+                            className="h-8 w-8 p-0 text-destructive hover:text-destructive"
+                          >
+                            <Icon name="Trash2" size={14} />
+                          </Button>
+                        </div>
                       </div>
                     </div>
                   ))}
@@ -187,6 +257,199 @@ const ObjectsMap = () => {
           </div>
         </div>
       </main>
+
+      <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle>Добавить объект на карту</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4">
+            <div>
+              <Label htmlFor="add-name">Название объекта *</Label>
+              <Input
+                id="add-name"
+                value={newObject.name}
+                onChange={(e) => setNewObject({ ...newObject, name: e.target.value })}
+                placeholder="Например: Карьер Северный"
+              />
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <Label htmlFor="add-x">Координата X</Label>
+                <Input
+                  id="add-x"
+                  type="number"
+                  value={newObject.x}
+                  onChange={(e) => setNewObject({ ...newObject, x: Number(e.target.value) })}
+                />
+              </div>
+              <div>
+                <Label htmlFor="add-y">Координата Y</Label>
+                <Input
+                  id="add-y"
+                  type="number"
+                  value={newObject.y}
+                  onChange={(e) => setNewObject({ ...newObject, y: Number(e.target.value) })}
+                />
+              </div>
+            </div>
+            <div>
+              <Label htmlFor="add-type">Тип работ</Label>
+              <Select
+                value={newObject.type}
+                onValueChange={(value) => setNewObject({ ...newObject, type: value as 'project' | 'expertise' | 'research' })}
+              >
+                <SelectTrigger id="add-type">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="project">
+                    <div className="flex items-center gap-2">
+                      <div className="w-3 h-3 rounded-full bg-green-500" />
+                      Проектирование
+                    </div>
+                  </SelectItem>
+                  <SelectItem value="expertise">
+                    <div className="flex items-center gap-2">
+                      <div className="w-3 h-3 rounded-full bg-red-500" />
+                      Экспертиза
+                    </div>
+                  </SelectItem>
+                  <SelectItem value="research">
+                    <div className="flex items-center gap-2">
+                      <div className="w-3 h-3 rounded-full bg-amber-500" />
+                      Изыскания
+                    </div>
+                  </SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
+              <Label htmlFor="add-region">Регион</Label>
+              <Input
+                id="add-region"
+                value={newObject.region}
+                onChange={(e) => setNewObject({ ...newObject, region: e.target.value })}
+                placeholder="Например: Кемеровская обл."
+              />
+            </div>
+            <div>
+              <Label htmlFor="add-description">Описание</Label>
+              <Textarea
+                id="add-description"
+                value={newObject.description}
+                onChange={(e) => setNewObject({ ...newObject, description: e.target.value })}
+                placeholder="Краткое описание объекта"
+                rows={3}
+              />
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setIsAddDialogOpen(false)}>
+              Отмена
+            </Button>
+            <Button onClick={handleAddObject} disabled={!newObject.name}>
+              Добавить
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle>Редактировать объект</DialogTitle>
+          </DialogHeader>
+          {editingObject && (
+            <div className="space-y-4">
+              <div>
+                <Label htmlFor="edit-name">Название объекта *</Label>
+                <Input
+                  id="edit-name"
+                  value={editingObject.name}
+                  onChange={(e) => setEditingObject({ ...editingObject, name: e.target.value })}
+                />
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <Label htmlFor="edit-x">Координата X</Label>
+                  <Input
+                    id="edit-x"
+                    type="number"
+                    value={editingObject.x}
+                    onChange={(e) => setEditingObject({ ...editingObject, x: Number(e.target.value) })}
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="edit-y">Координата Y</Label>
+                  <Input
+                    id="edit-y"
+                    type="number"
+                    value={editingObject.y}
+                    onChange={(e) => setEditingObject({ ...editingObject, y: Number(e.target.value) })}
+                  />
+                </div>
+              </div>
+              <div>
+                <Label htmlFor="edit-type">Тип работ</Label>
+                <Select
+                  value={editingObject.type}
+                  onValueChange={(value) => setEditingObject({ ...editingObject, type: value as 'project' | 'expertise' | 'research' })}
+                >
+                  <SelectTrigger id="edit-type">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="project">
+                      <div className="flex items-center gap-2">
+                        <div className="w-3 h-3 rounded-full bg-green-500" />
+                        Проектирование
+                      </div>
+                    </SelectItem>
+                    <SelectItem value="expertise">
+                      <div className="flex items-center gap-2">
+                        <div className="w-3 h-3 rounded-full bg-red-500" />
+                        Экспертиза
+                      </div>
+                    </SelectItem>
+                    <SelectItem value="research">
+                      <div className="flex items-center gap-2">
+                        <div className="w-3 h-3 rounded-full bg-amber-500" />
+                        Изыскания
+                      </div>
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div>
+                <Label htmlFor="edit-region">Регион</Label>
+                <Input
+                  id="edit-region"
+                  value={editingObject.region}
+                  onChange={(e) => setEditingObject({ ...editingObject, region: e.target.value })}
+                />
+              </div>
+              <div>
+                <Label htmlFor="edit-description">Описание</Label>
+                <Textarea
+                  id="edit-description"
+                  value={editingObject.description}
+                  onChange={(e) => setEditingObject({ ...editingObject, description: e.target.value })}
+                  rows={3}
+                />
+              </div>
+            </div>
+          )}
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setIsEditDialogOpen(false)}>
+              Отмена
+            </Button>
+            <Button onClick={handleEditObject}>
+              Сохранить
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
