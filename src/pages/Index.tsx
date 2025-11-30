@@ -27,30 +27,6 @@ const Index = () => {
     },
   ];
 
-  const portfolio = [
-    {
-      title: 'Горно-обогатительный комбинат',
-      location: 'Курская область',
-      year: '2023',
-      image: 'https://cdn.poehali.dev/projects/db431dda-a896-493b-8d5f-c8ce3ef9966e/files/090d9f2c-d939-4016-8e1a-9cb94e30dc8c.jpg',
-      type: 'Проектирование',
-    },
-    {
-      title: 'Экспертиза опасного производства',
-      location: 'Челябинская область',
-      year: '2024',
-      image: 'https://cdn.poehali.dev/projects/db431dda-a896-493b-8d5f-c8ce3ef9966e/files/54741029-4333-4960-afaa-7eb8681b486d.jpg',
-      type: 'Экспертиза',
-    },
-    {
-      title: 'Инженерные изыскания',
-      location: 'Красноярский край',
-      year: '2024',
-      image: 'https://cdn.poehali.dev/projects/db431dda-a896-493b-8d5f-c8ce3ef9966e/files/977ee279-ed46-4493-b9ff-ce74834469f9.jpg',
-      type: 'Изыскания',
-    },
-  ];
-
   const certificates = [
     { title: 'Лицензия на проектирование', number: 'ПД-123456', date: '01.2024' },
     { title: 'Аттестат аккредитации ЭПБ', number: 'АА-789012', date: '03.2024' },
@@ -123,7 +99,7 @@ const Index = () => {
             </div>
           </div>
           <nav className="hidden md:flex gap-6">
-            {['home', 'about', 'services', 'portfolio', 'certificates', 'news', 'vacancies', 'contacts'].map((item) => (
+            {['home', 'about', 'services', 'certificates', 'news', 'vacancies', 'contacts'].map((item) => (
               <button
                 key={item}
                 onClick={() => scrollToSection(item)}
@@ -134,7 +110,6 @@ const Index = () => {
                 {item === 'home' && 'Главная'}
                 {item === 'about' && 'О компании'}
                 {item === 'services' && 'Услуги'}
-                {item === 'portfolio' && 'Портфолио'}
                 {item === 'certificates' && 'Квалификация'}
                 {item === 'news' && 'Новости'}
                 {item === 'vacancies' && 'Вакансии'}
@@ -253,39 +228,6 @@ const Index = () => {
                       Подробнее <Icon name="ArrowRight" size={16} className="ml-1" />
                     </Button>
                   </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section id="portfolio" className="py-20 bg-muted/30">
-          <div className="container">
-            <h2 className="font-heading text-4xl font-bold text-center mb-4">Портфолио проектов</h2>
-            <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
-              Реализованные проекты в различных отраслях промышленности
-            </p>
-            <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-              {portfolio.map((project, index) => (
-                <Card key={index} className="overflow-hidden hover:shadow-xl transition-shadow">
-                  <div className="aspect-video overflow-hidden">
-                    <img
-                      src={project.image}
-                      alt={project.title}
-                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                    />
-                  </div>
-                  <CardHeader>
-                    <div className="flex items-center justify-between mb-2">
-                      <Badge>{project.type}</Badge>
-                      <span className="text-sm text-muted-foreground">{project.year}</span>
-                    </div>
-                    <CardTitle className="text-lg">{project.title}</CardTitle>
-                    <CardDescription className="flex items-center gap-1">
-                      <Icon name="MapPin" size={14} />
-                      {project.location}
-                    </CardDescription>
-                  </CardHeader>
                 </Card>
               ))}
             </div>
