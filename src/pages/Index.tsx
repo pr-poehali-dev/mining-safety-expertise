@@ -140,14 +140,32 @@ const Index = () => {
 
       <div className="flex-1 lg:ml-64">
         <header className="sticky top-0 z-20 w-full bg-primary shadow-sm">
-          <div className="container flex h-16 items-center justify-between">
+          <div className="container flex h-16 items-center justify-between gap-4">
             <button
               onClick={() => setSidebarOpen(!sidebarOpen)}
               className="lg:hidden text-white p-2"
             >
               <Icon name="Menu" size={24} />
             </button>
-            <div className="flex-1" />
+            <nav className="hidden md:flex items-center gap-6 flex-1">
+              {['home', 'about', 'services', 'certificates', 'news', 'vacancies', 'contacts'].map((item) => (
+                <button
+                  key={item}
+                  onClick={() => scrollToSection(item)}
+                  className={`text-sm font-medium transition-colors hover:text-secondary ${
+                    activeSection === item ? 'text-secondary' : 'text-white/90'
+                  }`}
+                >
+                  {item === 'home' && 'Главная'}
+                  {item === 'about' && 'О компании'}
+                  {item === 'services' && 'Услуги'}
+                  {item === 'certificates' && 'Квалификация'}
+                  {item === 'news' && 'Новости'}
+                  {item === 'vacancies' && 'Вакансии'}
+                  {item === 'contacts' && 'Контакты'}
+                </button>
+              ))}
+            </nav>
             <Button variant="secondary" size="sm">Поиск</Button>
           </div>
         </header>
