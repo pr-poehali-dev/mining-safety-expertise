@@ -188,10 +188,7 @@ const ObjectsMap = () => {
             Изыскания ({objects.filter(o => o.type === 'research').length})
           </Button>
         </div>
- <div className="w-3 h-3 rounded-full bg-amber-500" />
-            Экология ({objects.filter(o => o.type === 'research').length})
-          </Button>
-        </div>
+
         <div className="grid lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2">
             <Card>
