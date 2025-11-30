@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -8,6 +9,7 @@ import Icon from '@/components/ui/icon';
 
 const Index = () => {
   const [activeSection, setActiveSection] = useState('home');
+  const navigate = useNavigate();
 
   const services = [
     {
@@ -101,23 +103,56 @@ const Index = () => {
               </div>
             </div>
             <nav className="hidden md:flex items-center gap-6 lg:gap-8 flex-1 justify-center">
-              {['home', 'about', 'services', 'certificates', 'news', 'vacancies', 'contacts'].map((item) => (
-                <button
-                  key={item}
-                  onClick={() => scrollToSection(item)}
-                  className={`text-base font-medium transition-colors hover:text-secondary whitespace-nowrap ${
-                    activeSection === item ? 'text-secondary' : 'text-white/90'
-                  }`}
-                >
-                  {item === 'home' && 'Главная'}
-                  {item === 'about' && 'О компании'}
-                  {item === 'services' && 'Услуги'}
-                  {item === 'certificates' && 'Квалификация'}
-                  {item === 'news' && 'Новости'}
-                  {item === 'vacancies' && 'Вакансии'}
-                  {item === 'contacts' && 'Контакты'}
-                </button>
-              ))}
+              <button
+                onClick={() => scrollToSection('home')}
+                className={`text-base font-medium transition-colors hover:text-secondary whitespace-nowrap ${
+                  activeSection === 'home' ? 'text-secondary' : 'text-white/90'
+                }`}
+              >
+                Главная
+              </button>
+              <button
+                onClick={() => navigate('/about')}
+                className="text-base font-medium transition-colors hover:text-secondary whitespace-nowrap text-white/90"
+              >
+                О компании
+              </button>
+              <button
+                onClick={() => navigate('/services')}
+                className="text-base font-medium transition-colors hover:text-secondary whitespace-nowrap text-white/90"
+              >
+                Услуги
+              </button>
+              <button
+                onClick={() => scrollToSection('certificates')}
+                className={`text-base font-medium transition-colors hover:text-secondary whitespace-nowrap ${
+                  activeSection === 'certificates' ? 'text-secondary' : 'text-white/90'
+                }`}
+              >
+                Квалификация
+              </button>
+              <button
+                onClick={() => scrollToSection('news')}
+                className={`text-base font-medium transition-colors hover:text-secondary whitespace-nowrap ${
+                  activeSection === 'news' ? 'text-secondary' : 'text-white/90'
+                }`}
+              >
+                Новости
+              </button>
+              <button
+                onClick={() => scrollToSection('vacancies')}
+                className={`text-base font-medium transition-colors hover:text-secondary whitespace-nowrap ${
+                  activeSection === 'vacancies' ? 'text-secondary' : 'text-white/90'
+                }`}
+              >
+                Вакансии
+              </button>
+              <button
+                onClick={() => navigate('/contacts')}
+                className="text-base font-medium transition-colors hover:text-secondary whitespace-nowrap text-white/90"
+              >
+                Контакты
+              </button>
             </nav>
             <Button variant="secondary" className="ml-auto">Поиск</Button>
           </div>
