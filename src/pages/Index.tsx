@@ -111,8 +111,14 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container flex h-16 items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Icon name="Mountain" className="text-primary" size={32} />
+          <div className="flex items-center gap-3">
+            <div className="relative w-10 h-10">
+              <div className="absolute inset-0 bg-primary rounded-lg"></div>
+              <div className="absolute inset-1 bg-background rounded-sm"></div>
+              <div className="absolute inset-0 flex items-center justify-center">
+                <Icon name="Mountain" className="text-primary relative z-10" size={20} />
+              </div>
+            </div>
             <span className="font-heading text-xl font-bold text-primary">ГорПроект</span>
           </div>
           <nav className="hidden md:flex gap-6">
