@@ -113,28 +113,31 @@ const ObjectsMap = () => {
                     style={{ height: '600px' }}
                     onClick={handleMapClick}
                   >
-                    <rect width="800" height="500" fill="url(#mapGradient)" />
-                    <defs>
-                      <linearGradient id="mapGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" style={{ stopColor: '#e0f2fe', stopOpacity: 1 }} />
-                        <stop offset="100%" style={{ stopColor: '#bae6fd', stopOpacity: 1 }} />
-                      </linearGradient>
-                    </defs>
+                    <rect width="800" height="500" fill="#f0f9ff" />
                     
                     <path
-                      d="M 100 100 L 700 100 L 700 150 L 650 200 L 700 250 L 700 400 L 600 450 L 400 450 L 300 400 L 200 400 L 150 350 L 100 300 Z"
-                      fill="hsl(var(--primary))"
-                      opacity="0.1"
-                      stroke="hsl(var(--primary))"
-                      strokeWidth="2"
+                      d="M 50 180 L 120 160 L 180 140 L 250 130 L 320 140 L 380 150 L 450 145 L 520 150 L 590 155 L 650 160 L 710 170 L 740 190 L 750 220 L 745 250 L 730 280 L 710 310 L 680 330 L 640 340 L 590 345 L 530 350 L 470 345 L 410 340 L 350 330 L 290 320 L 230 300 L 180 280 L 130 260 L 90 230 L 60 200 Z"
+                      fill="#3b82f6"
+                      opacity="0.7"
+                      stroke="#1e40af"
+                      strokeWidth="3"
                     />
                     
-                    <text x="400" y="280" textAnchor="middle" fill="hsl(var(--primary))" fontSize="48" fontWeight="bold" opacity="0.1">
+                    <text x="400" y="260" textAnchor="middle" fill="#1e40af" fontSize="64" fontWeight="bold" opacity="0.15">
                       РОССИЯ
                     </text>
                     
-                    <line x1="100" y1="250" x2="700" y2="250" stroke="hsl(var(--primary))" strokeWidth="1" strokeDasharray="5,5" opacity="0.3" />
-                    <line x1="400" y1="100" x2="400" y2="450" stroke="hsl(var(--primary))" strokeWidth="1" strokeDasharray="5,5" opacity="0.3" />
+                    <circle cx="200" cy="210" r="3" fill="#94a3b8" opacity="0.5" />
+                    <text x="200" y="200" textAnchor="middle" fontSize="10" fill="#64748b">Москва</text>
+                    
+                    <circle cx="550" cy="240" r="3" fill="#94a3b8" opacity="0.5" />
+                    <text x="550" y="230" textAnchor="middle" fontSize="10" fill="#64748b">Новосибирск</text>
+                    
+                    <circle cx="680" cy="270" r="3" fill="#94a3b8" opacity="0.5" />
+                    <text x="680" y="260" textAnchor="middle" fontSize="10" fill="#64748b">Владивосток</text>
+                    
+                    <line x1="50" y1="250" x2="750" y2="250" stroke="#cbd5e1" strokeWidth="1" strokeDasharray="5,5" opacity="0.4" />
+                    <line x1="400" y1="130" x2="400" y2="350" stroke="#cbd5e1" strokeWidth="1" strokeDasharray="5,5" opacity="0.4" />
                     
                     {objects.map((obj) => (
                       <g key={obj.id}>
