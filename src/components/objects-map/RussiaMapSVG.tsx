@@ -106,30 +106,24 @@ const RussiaMapSVG = ({ objects, onObjectHover, hoveredObject }: RussiaMapSVGPro
   ];
 
   return (
-    <svg viewBox="0 0 1900 820" className="w-full h-full" preserveAspectRatio="xMidYMid meet">
+    <svg viewBox="0 0 1400 820" className="w-full h-full" preserveAspectRatio="xMidYMid meet">
       <defs>
         <filter id="shadow">
           <feDropShadow dx="0" dy="2" stdDeviation="3" floodOpacity="0.3"/>
         </filter>
-        <linearGradient id="mapGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" style={{ stopColor: '#1e40af', stopOpacity: 1 }} />
-          <stop offset="100%" style={{ stopColor: '#2563eb', stopOpacity: 1 }} />
-        </linearGradient>
       </defs>
       
-      <rect width="1900" height="820" fill="#dbeafe" />
+      <rect width="1400" height="820" fill="#ffffff" />
       
-      {regions.map((path, index) => (
-        <path
-          key={index}
-          d={path}
-          fill="url(#mapGradient)"
-          stroke="white"
-          strokeWidth="1.5"
-          opacity="0.92"
-          className="hover:opacity-100 transition-opacity"
-        />
-      ))}
+      <image
+        href="https://cdn.poehali.dev/files/4ca8c9a3-3b8c-4686-8633-bb2858785e61.png"
+        x="0"
+        y="0"
+        width="1400"
+        height="820"
+        preserveAspectRatio="xMidYMid meet"
+        opacity="0.95"
+      />
       
       {objects.map((obj) => {
         const color = getMarkerColor(obj.type);
