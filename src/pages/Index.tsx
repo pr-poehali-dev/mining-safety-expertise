@@ -8,6 +8,7 @@ import Icon from '@/components/ui/icon';
 
 const Index = () => {
   const [activeSection, setActiveSection] = useState('home');
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const services = [
     {
@@ -84,44 +85,73 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
-      <header className="sticky top-0 z-50 w-full bg-primary shadow-sm">
-        <div className="container flex h-20 items-center justify-between">
-          <div className="flex items-center gap-4">
+    <div className="min-h-screen bg-background flex">
+      <aside className={`fixed left-0 top-0 h-full w-64 bg-primary text-white z-40 transform transition-transform duration-300 ${
+        sidebarOpen ? 'translate-x-0' : '-translate-x-full'
+      } lg:translate-x-0`}>
+        <div className="p-6 border-b border-white/10">
+          <div className="flex items-center gap-3 mb-2">
             <img 
               src="https://cdn.poehali.dev/files/55c85bd5-dd2e-4641-94a3-c905f750a895.JPG" 
               alt="СПЭК" 
-              className="h-14 w-20 object-contain brightness-0 invert"
+              className="h-10 w-14 object-contain brightness-0 invert"
             />
-            <div className="flex flex-col">
-              <span className="font-heading font-bold leading-tight text-white text-sm">Сибирская Проектная</span>
-              <span className="font-heading font-bold text-white/90 leading-tight text-sm">Экспертная Компания</span>
-            </div>
           </div>
-          <nav className="hidden lg:flex gap-8">
-            {['home', 'about', 'services', 'certificates', 'news', 'vacancies', 'contacts'].map((item) => (
-              <button
-                key={item}
-                onClick={() => scrollToSection(item)}
-                className={`text-sm font-medium transition-colors hover:text-secondary ${
-                  activeSection === item ? 'text-secondary' : 'text-white/90'
-                }`}
-              >
-                {item === 'home' && 'Главная'}
-                {item === 'about' && 'О компании'}
-                {item === 'services' && 'Услуги'}
-                {item === 'certificates' && 'Квалификация'}
-                {item === 'news' && 'Новости'}
-                {item === 'vacancies' && 'Вакансии'}
-                {item === 'contacts' && 'Контакты'}
-              </button>
-            ))}
-          </nav>
-          <Button variant="secondary" size="sm" className="hidden md:block">Поиск</Button>
+          <div className="text-sm font-medium text-white/90">Сибирская Проектная Экспертная Компания</div>
         </div>
-      </header>
+        <nav className="p-4">
+          <ul className="space-y-1">
+            {[
+              { id: 'home', label: 'Главная', icon: 'Home' },
+              { id: 'about', label: 'О компании', icon: 'Building2' },
+              { id: 'services', label: 'Услуги', icon: 'Briefcase' },
+              { id: 'certificates', label: 'Квалификация', icon: 'Award' },
+              { id: 'news', label: 'Новости', icon: 'Newspaper' },
+              { id: 'vacancies', label: 'Вакансии', icon: 'Users' },
+              { id: 'contacts', label: 'Контакты', icon: 'Phone' },
+            ].map((item) => (
+              <li key={item.id}>
+                <button
+                  onClick={() => {
+                    scrollToSection(item.id);
+                    setSidebarOpen(false);
+                  }}
+                  className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
+                    activeSection === item.id
+                      ? 'bg-white/10 text-white'
+                      : 'text-white/70 hover:bg-white/5 hover:text-white'
+                  }`}
+                >
+                  <Icon name={item.icon} size={18} />
+                  {item.label}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </aside>
+      
+      {sidebarOpen && (
+        <div 
+          className="fixed inset-0 bg-black/50 z-30 lg:hidden"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
 
-      <main>
+      <div className="flex-1 lg:ml-64">
+        <header className="sticky top-0 z-20 w-full bg-primary shadow-sm">
+          <div className="container flex h-16 items-center justify-between">
+            <button
+              onClick={() => setSidebarOpen(!sidebarOpen)}
+              className="lg:hidden text-white p-2"
+            >
+              <Icon name="Menu" size={24} />
+            </button>
+            <div className="flex-1" />
+            <Button variant="secondary" size="sm">Поиск</Button>
+          </div>
+        </header>
+        <main>
         <section id="home" className="relative py-16 bg-white border-b">
           <div className="container">
             <div className="grid md:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
@@ -457,6 +487,7 @@ const Index = () => {
           </div>
         </div>
       </footer>
+      </div>
     </div>
   );
 };
