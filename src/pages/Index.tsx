@@ -90,7 +90,7 @@ const Index = () => {
             <div className="flex items-center gap-4">
               <div className="h-16 w-16 flex-shrink-0">
                 <img 
-                  src="https://cdn.poehali.dev/files/3b9f0bd8-145f-46e7-9420-060c983387c9.png" 
+                  src="https://cdn.poehali.dev/files/35047487-09a0-4e51-86f1-5e184b7d5afa.png" 
                   alt="СПЭК" 
                   className="h-full w-full object-contain"
                 />
@@ -410,13 +410,16 @@ const Index = () => {
         <div className="container">
           <div className="grid md:grid-cols-4 gap-8 mb-8">
             <div>
-              <div className="flex items-center gap-2 mb-4">
+              <div className="flex items-center gap-3 mb-4">
                 <img 
-                  src="https://cdn.poehali.dev/files/55c85bd5-dd2e-4641-94a3-c905f750a895.JPG" 
+                  src="https://cdn.poehali.dev/files/35047487-09a0-4e51-86f1-5e184b7d5afa.png" 
                   alt="СПЭК" 
-                  className="h-8 w-8 object-contain brightness-0 invert"
+                  className="h-12 w-12 object-contain"
                 />
-                <span className="font-heading text-lg font-bold">СПЭК</span>
+                <div className="flex flex-col">
+                  <span className="font-heading text-sm font-bold leading-tight">Сибирская Проектная</span>
+                  <span className="font-heading text-sm font-bold leading-tight text-white/90">Экспертная Компания (СПЭК)</span>
+                </div>
               </div>
               <p className="text-white/80 text-sm">
                 Проектирование горных производств и промышленная безопасность
