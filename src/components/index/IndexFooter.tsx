@@ -46,9 +46,9 @@ const IndexFooter = () => {
           <div>
             <h3 className="font-heading font-semibold mb-4">Контакты</h3>
             <ul className="space-y-2 text-sm text-white/80">
-              <li>+7 (495) 123-45-67</li>
-              <li>info@gorproekt.ru</li>
-              <li>Москва, ул. Промышленная, 10</li>
+              <li>+7 (3952) 655-943</li>
+              <li>655943@mail.ru</li>
+              <li>Иркутск, ул. Дзержинского, 1, оф. 224</li>
             </ul>
           </div>
         </div>
