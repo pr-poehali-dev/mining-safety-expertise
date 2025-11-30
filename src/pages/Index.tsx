@@ -89,9 +89,9 @@ const Index = () => {
           <div className="container flex h-16 items-center gap-6">
             <div className="flex items-center gap-3">
               <img 
-                src="https://cdn.poehali.dev/files/55c85bd5-dd2e-4641-94a3-c905f750a895.JPG" 
+                src="https://cdn.poehali.dev/files/ab6c9bc2-36fd-4078-8b68-ed2d7a95c50b.png" 
                 alt="СПЭК" 
-                className="h-10 w-14 object-contain brightness-0 invert"
+                className="h-10 w-10 object-contain brightness-0 invert"
               />
               <div className="hidden sm:flex flex-col">
                 <span className="font-heading font-bold leading-tight text-white text-xs">Сибирская Проектная</span>
