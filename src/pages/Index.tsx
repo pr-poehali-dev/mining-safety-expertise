@@ -88,12 +88,11 @@ const Index = () => {
         <header className="sticky top-0 z-20 w-full bg-primary shadow-sm">
           <div className="container flex h-16 items-center gap-3">
             <div className="flex items-center gap-2">
-              <div className="h-9 w-9 flex-shrink-0 bg-primary flex items-center justify-center">
+              <div className="h-9 w-9 flex-shrink-0 bg-white rounded flex items-center justify-center p-1">
                 <img 
                   src="https://cdn.poehali.dev/files/ab6c9bc2-36fd-4078-8b68-ed2d7a95c50b.png" 
                   alt="СПЭК" 
-                  className="h-8 w-8 object-contain"
-                  style={{ filter: 'brightness(0) invert(1)' }}
+                  className="h-full w-full object-contain"
                 />
               </div>
               <div className="hidden lg:flex flex-col">
