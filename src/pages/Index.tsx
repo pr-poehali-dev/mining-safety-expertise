@@ -88,11 +88,13 @@ const Index = () => {
         <header className="sticky top-0 z-20 w-full bg-primary shadow-sm">
           <div className="container flex h-20 items-center gap-4">
             <div className="flex items-center gap-3">
-              <img 
-                src="https://cdn.poehali.dev/files/ab6c9bc2-36fd-4078-8b68-ed2d7a95c50b.png" 
-                alt="СПЭК" 
-                className="h-12 w-12 flex-shrink-0 object-contain brightness-0 invert"
-              />
+              <div className="h-12 w-12 flex-shrink-0 bg-white rounded-md flex items-center justify-center p-2">
+                <img 
+                  src="https://cdn.poehali.dev/files/ab6c9bc2-36fd-4078-8b68-ed2d7a95c50b.png" 
+                  alt="СПЭК" 
+                  className="h-full w-full object-contain"
+                />
+              </div>
               <div className="hidden lg:flex flex-col">
                 <span className="font-heading font-bold leading-tight text-white text-sm">Сибирская Проектная</span>
                 <span className="font-heading font-bold text-white/90 leading-tight text-sm">Экспертная Компания (СПЭК)</span>
