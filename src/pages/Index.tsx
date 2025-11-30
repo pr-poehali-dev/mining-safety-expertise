@@ -86,9 +86,9 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background">
         <header className="sticky top-0 z-20 w-full bg-primary shadow-sm">
-          <div className="container flex h-16 items-center gap-3">
-            <div className="flex items-center gap-2">
-              <div className="h-9 w-9 flex-shrink-0 bg-white rounded flex items-center justify-center p-1">
+          <div className="container flex h-20 items-center gap-4">
+            <div className="flex items-center gap-3">
+              <div className="h-12 w-12 flex-shrink-0 bg-white rounded flex items-center justify-center p-1.5">
                 <img 
                   src="https://cdn.poehali.dev/files/ab6c9bc2-36fd-4078-8b68-ed2d7a95c50b.png" 
                   alt="СПЭК" 
@@ -96,16 +96,16 @@ const Index = () => {
                 />
               </div>
               <div className="hidden lg:flex flex-col">
-                <span className="font-heading font-bold leading-tight text-white text-[10px]">Сибирская Проектная</span>
-                <span className="font-heading font-bold text-white/90 leading-tight text-[10px]">Экспертная Компания (СПЭК)</span>
+                <span className="font-heading font-bold leading-tight text-white text-sm">Сибирская Проектная</span>
+                <span className="font-heading font-bold text-white/90 leading-tight text-sm">Экспертная Компания (СПЭК)</span>
               </div>
             </div>
-            <nav className="hidden md:flex items-center gap-3 lg:gap-4 flex-1">
+            <nav className="hidden md:flex items-center gap-5 lg:gap-6 flex-1">
               {['home', 'about', 'services', 'certificates', 'news', 'vacancies', 'contacts'].map((item) => (
                 <button
                   key={item}
                   onClick={() => scrollToSection(item)}
-                  className={`text-xs font-medium transition-colors hover:text-secondary whitespace-nowrap ${
+                  className={`text-sm font-medium transition-colors hover:text-secondary whitespace-nowrap ${
                     activeSection === item ? 'text-secondary' : 'text-white/90'
                   }`}
                 >
@@ -119,7 +119,7 @@ const Index = () => {
                 </button>
               ))}
             </nav>
-            <Button variant="secondary" size="sm" className="ml-auto text-xs">Поиск</Button>
+            <Button variant="secondary" size="sm" className="ml-auto">Поиск</Button>
           </div>
         </header>
         <main>
