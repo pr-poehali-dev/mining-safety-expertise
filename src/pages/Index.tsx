@@ -140,13 +140,24 @@ const Index = () => {
 
       <div className="flex-1 lg:ml-64">
         <header className="sticky top-0 z-20 w-full bg-primary shadow-sm">
-          <div className="container flex h-16 items-center justify-between gap-4">
+          <div className="container flex h-16 items-center gap-6">
             <button
               onClick={() => setSidebarOpen(!sidebarOpen)}
               className="lg:hidden text-white p-2"
             >
               <Icon name="Menu" size={24} />
             </button>
+            <div className="flex items-center gap-3">
+              <img 
+                src="https://cdn.poehali.dev/files/55c85bd5-dd2e-4641-94a3-c905f750a895.JPG" 
+                alt="СПЭК" 
+                className="h-10 w-14 object-contain brightness-0 invert"
+              />
+              <div className="hidden sm:flex flex-col">
+                <span className="font-heading font-bold leading-tight text-white text-xs">Сибирская Проектная</span>
+                <span className="font-heading font-bold text-white/90 leading-tight text-xs">Экспертная Компания (СПЭК)</span>
+              </div>
+            </div>
             <nav className="hidden md:flex items-center gap-6 flex-1">
               {['home', 'about', 'services', 'certificates', 'news', 'vacancies', 'contacts'].map((item) => (
                 <button
@@ -166,7 +177,7 @@ const Index = () => {
                 </button>
               ))}
             </nav>
-            <Button variant="secondary" size="sm">Поиск</Button>
+            <Button variant="secondary" size="sm" className="ml-auto">Поиск</Button>
           </div>
         </header>
         <main>
