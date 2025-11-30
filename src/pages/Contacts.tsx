@@ -1,15 +1,16 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Icon from "@/components/ui/icon";
-import IndexHeader from '@/components/index/IndexHeader';
+import IndexHeader from "@/components/index/IndexHeader";
 
 const Contacts = () => {
-
   return (
     <div className="min-h-screen bg-background">
       <IndexHeader />
 
       <main className="container py-16">
-        <h1 className="font-heading text-5xl font-bold text-primary mb-4">Контакты</h1>
+        <h1 className="font-heading text-5xl font-bold text-primary mb-4">
+          Контакты
+        </h1>
         <p className="text-lg text-muted-foreground mb-12">
           Свяжитесь с нами удобным для вас способом
         </p>
@@ -23,8 +24,10 @@ const Contacts = () => {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-lg">+7 (495) 123-45-67</p>
-              <p className="text-sm text-muted-foreground mt-2">Пн-Пт: 9:00 - 18:00</p>
+              <p className="text-lg">+7 (3952) 655-943</p>
+              <p className="text-sm text-muted-foreground mt-2">
+                Пн-Пт: 9:00 - 18:00
+              </p>
             </CardContent>
           </Card>
 
@@ -36,8 +39,10 @@ const Contacts = () => {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-lg">info@gorproekt.ru</p>
-              <p className="text-sm text-muted-foreground mt-2">Ответим в течение 24 часов</p>
+              <p className="text-lg">655943@mail.ru</p>
+              <p className="text-sm text-muted-foreground mt-2">
+                Ответим в течение 24 часов
+              </p>
             </CardContent>
           </Card>
 
@@ -49,8 +54,10 @@ const Contacts = () => {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-lg">Москва, ул. Промышленная, 10</p>
-              <p className="text-sm text-muted-foreground mt-2">Офис 205, 2 этаж</p>
+              <p className="text-lg">Иркутск, ул. Дзержинского, 1, оф. 224</p>
+              <p className="text-sm text-muted-foreground mt-2">
+                Офис 205, 2 этаж
+              </p>
             </CardContent>
           </Card>
 
@@ -63,7 +70,9 @@ const Contacts = () => {
             </CardHeader>
             <CardContent>
               <p className="text-lg">Пн-Пт: 9:00 - 18:00</p>
-              <p className="text-sm text-muted-foreground mt-2">Сб-Вс: Выходной</p>
+              <p className="text-sm text-muted-foreground mt-2">
+                Сб-Вс: Выходной
+              </p>
             </CardContent>
           </Card>
         </div>
