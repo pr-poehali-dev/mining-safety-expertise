@@ -430,13 +430,29 @@ const ObjectsMap = () => {
               </div>
             </div>
           )}
-          <DialogFooter>
-            <Button variant="outline" onClick={() => setIsEditDialogOpen(false)}>
-              Отмена
+          <DialogFooter className="flex-row gap-2 sm:justify-between">
+            <Button
+              variant="destructive"
+              onClick={() => {
+                if (editingObject && confirm(`Удалить объект "${editingObject.name}"?`)) {
+                  handleDeleteObject(editingObject.id);
+                  setIsEditDialogOpen(false);
+                  setEditingObject(null);
+                }
+              }}
+              className="gap-2"
+            >
+              <Icon name="Trash2" size={16} />
+              Удалить
             </Button>
-            <Button onClick={handleEditObject}>
-              Сохранить
-            </Button>
+            <div className="flex gap-2">
+              <Button variant="outline" onClick={() => setIsEditDialogOpen(false)}>
+                Отмена
+              </Button>
+              <Button onClick={handleEditObject}>
+                Сохранить
+              </Button>
+            </div>
           </DialogFooter>
         </DialogContent>
       </Dialog>
@@ -468,26 +484,25 @@ const ObjectsMap = () => {
               </div>
             )}
           </div>
-          <DialogFooter className="flex-row gap-2 sm:justify-between">
-            <Button
-              variant="destructive"
-              onClick={() => {
-                if (selectedObject && confirm(`Удалить объект "${selectedObject.name}"?`)) {
-                  handleDeleteObject(selectedObject.id);
-                  setIsInfoDialogOpen(false);
-                  setSelectedObject(null);
-                }
-              }}
-              className="gap-2"
-            >
-              <Icon name="Trash2" size={16} />
-              Удалить
-            </Button>
+          <DialogFooter className="gap-2">
             <Button
               variant="outline"
               onClick={() => setIsInfoDialogOpen(false)}
             >
               Закрыть
+            </Button>
+            <Button
+              onClick={() => {
+                if (selectedObject) {
+                  setEditingObject({ ...selectedObject });
+                  setIsInfoDialogOpen(false);
+                  setIsEditDialogOpen(true);
+                }
+              }}
+              className="gap-2"
+            >
+              <Icon name="Edit" size={16} />
+              Редактировать
             </Button>
           </DialogFooter>
         </DialogContent>
