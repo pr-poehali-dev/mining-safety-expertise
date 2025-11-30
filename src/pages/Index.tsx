@@ -97,7 +97,7 @@ const Index = () => {
               </div>
               <div className="hidden lg:flex flex-col">
                 <span className="font-heading font-bold leading-tight text-white text-base">Сибирская Проектная</span>
-                <span className="font-heading font-bold text-white/90 leading-tight text-base">Экспертная Компания (СПЭК)</span>
+                <span className="font-heading font-bold text-white/90 leading-tight text-base">Экспертная Компания</span>
               </div>
             </div>
             <nav className="hidden md:flex items-center gap-6 lg:gap-8 flex-1 justify-center">
