@@ -53,6 +53,8 @@ const loadObjectsFromStorage = (): ObjectMarker[] => {
 const ObjectsMap = () => {
   const [objects, setObjects] = useState<ObjectMarker[]>(loadObjectsFromStorage);
   const [hoveredObject, setHoveredObject] = useState<number | null>(null);
+  const [selectedObject, setSelectedObject] = useState<ObjectMarker | null>(null);
+  const [isInfoDialogOpen, setIsInfoDialogOpen] = useState(false);
   const [selectedType, setSelectedType] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
@@ -216,7 +218,7 @@ const ObjectsMap = () => {
             <CardContent className="p-4">
               <div className="relative rounded-lg overflow-hidden">
                 <img 
-                  src="https://cdn.poehali.dev/files/7b5c0bca-05a3-43e3-8460-132c2ce38c8a.jpeg"
+                  src="https://cdn.poehali.dev/files/73dddc8d-5a17-4785-a7f2-5a3372646b73.png"
                   alt="Карта России с объектами"
                   className="w-full h-auto"
                 />
@@ -233,6 +235,10 @@ const ObjectsMap = () => {
                     }}
                     onMouseEnter={() => setHoveredObject(obj.id)}
                     onMouseLeave={() => setHoveredObject(null)}
+                    onClick={() => {
+                      setSelectedObject(obj);
+                      setIsInfoDialogOpen(true);
+                    }}
                     title={`${obj.name} - ${getTypeLabel(obj.type)}`}
                   />
                 ))}
@@ -430,6 +436,58 @@ const ObjectsMap = () => {
             </Button>
             <Button onClick={handleEditObject}>
               Сохранить
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Info Dialog */}
+      <Dialog open={isInfoDialogOpen} onOpenChange={setIsInfoDialogOpen}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <div className={`w-3 h-3 rounded-full ${getTypeColor(selectedObject?.type)}`} />
+              {selectedObject?.name}
+            </DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4">
+            <div>
+              <Label className="text-sm font-medium text-muted-foreground">Тип объекта</Label>
+              <p className="text-base mt-1">{selectedObject && getTypeLabel(selectedObject.type)}</p>
+            </div>
+            {selectedObject?.region && (
+              <div>
+                <Label className="text-sm font-medium text-muted-foreground">Регион</Label>
+                <p className="text-base mt-1">{selectedObject.region}</p>
+              </div>
+            )}
+            {selectedObject?.description && (
+              <div>
+                <Label className="text-sm font-medium text-muted-foreground">Описание</Label>
+                <p className="text-base mt-1">{selectedObject.description}</p>
+              </div>
+            )}
+          </div>
+          <DialogFooter className="flex-row gap-2 sm:justify-between">
+            <Button
+              variant="destructive"
+              onClick={() => {
+                if (selectedObject && confirm(`Удалить объект "${selectedObject.name}"?`)) {
+                  handleDeleteObject(selectedObject.id);
+                  setIsInfoDialogOpen(false);
+                  setSelectedObject(null);
+                }
+              }}
+              className="gap-2"
+            >
+              <Icon name="Trash2" size={16} />
+              Удалить
+            </Button>
+            <Button
+              variant="outline"
+              onClick={() => setIsInfoDialogOpen(false)}
+            >
+              Закрыть
             </Button>
           </DialogFooter>
         </DialogContent>
