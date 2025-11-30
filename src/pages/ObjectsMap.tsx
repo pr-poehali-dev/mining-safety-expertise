@@ -213,13 +213,29 @@ const ObjectsMap = () => {
 
         <div className="max-w-6xl mx-auto">
           <Card>
-            <CardContent className="p-0">
-              <div className="relative bg-background rounded-lg overflow-hidden aspect-video">
-                <RussiaMapSVG 
-                  objects={filteredObjects}
-                  onObjectHover={setHoveredObject}
-                  hoveredObject={hoveredObject}
+            <CardContent className="p-4">
+              <div className="relative rounded-lg overflow-hidden">
+                <img 
+                  src="https://cdn.poehali.dev/files/7b5c0bca-05a3-43e3-8460-132c2ce38c8a.jpeg"
+                  alt="Карта России с объектами"
+                  className="w-full h-auto"
                 />
+                {filteredObjects.map((obj) => (
+                  <div
+                    key={obj.id}
+                    className={`absolute w-4 h-4 rounded-full cursor-pointer transition-all ${getTypeColor(obj.type)} ${
+                      hoveredObject === obj.id ? 'scale-150 ring-4 ring-white shadow-lg' : 'scale-100'
+                    }`}
+                    style={{
+                      left: `${(obj.x / 1500) * 100}%`,
+                      top: `${(obj.y / 700) * 100}%`,
+                      transform: 'translate(-50%, -50%)'
+                    }}
+                    onMouseEnter={() => setHoveredObject(obj.id)}
+                    onMouseLeave={() => setHoveredObject(null)}
+                    title={`${obj.name} - ${getTypeLabel(obj.type)}`}
+                  />
+                ))}
               </div>
             </CardContent>
           </Card>
