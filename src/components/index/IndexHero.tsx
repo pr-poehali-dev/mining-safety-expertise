@@ -4,11 +4,14 @@ const IndexHero = () => {
       <div className="container max-w-6xl">
         <div className="space-y-8">
           <h1 className="font-heading text-3xl md:text-4xl font-bold text-foreground">
-            Добро пожаловать на сайт Сибирской Проектной Экспертной Компании (ООО «СПЭК»)!
+            Добро пожаловать на сайт ООО «СПЭК»!
           </h1>
-          
+
           <p className="text-lg text-muted-foreground">
-            Мы — команда профессионалов, специализирующихся на горных производствах. Наша миссия — предоставлять комплексные инженерные решения, которые помогают нашим клиентам достигать высоких результатов в горнодобывающей отрасли.
+            Мы — команда профессионалов, специализирующихся на горных
+            производствах. Наша миссия — предоставлять комплексные инженерные
+            решения, которые помогают нашим клиентам достигать высоких
+            результатов в горнодобывающей отрасли.
           </p>
 
           <div className="space-y-6">
@@ -19,19 +22,42 @@ const IndexHero = () => {
               <ul className="space-y-3 text-muted-foreground">
                 <li className="flex gap-3">
                   <span className="text-primary font-bold">•</span>
-                  <span><strong className="text-foreground">Проектирование и инжиниринг:</strong> от разработки концепции до реализации проектов в горнодобывающей отрасли.</span>
+                  <span>
+                    <strong className="text-foreground">
+                      Проектирование и инжиниринг:
+                    </strong>{" "}
+                    от разработки концепции до реализации проектов в
+                    горнодобывающей отрасли.
+                  </span>
                 </li>
                 <li className="flex gap-3">
                   <span className="text-primary font-bold">•</span>
-                  <span><strong className="text-foreground">Технологические решения:</strong> внедрение передовых технологий для повышения эффективности и безопасности горных работ.</span>
+                  <span>
+                    <strong className="text-foreground">
+                      Технологические решения:
+                    </strong>{" "}
+                    внедрение передовых технологий для повышения эффективности и
+                    безопасности горных работ.
+                  </span>
                 </li>
                 <li className="flex gap-3">
                   <span className="text-primary font-bold">•</span>
-                  <span><strong className="text-foreground">Экологическая ответственность:</strong> рекультивация нарушенных земель и минимизация воздействия на окружающую среду.</span>
+                  <span>
+                    <strong className="text-foreground">
+                      Экологическая ответственность:
+                    </strong>{" "}
+                    рекультивация нарушенных земель и минимизация воздействия на
+                    окружающую среду.
+                  </span>
                 </li>
                 <li className="flex gap-3">
                   <span className="text-primary font-bold">•</span>
-                  <span><strong className="text-foreground">Консультации и поддержка:</strong> экспертные консультации на всех этапах реализации проектов.</span>
+                  <span>
+                    <strong className="text-foreground">
+                      Консультации и поддержка:
+                    </strong>{" "}
+                    экспертные консультации на всех этапах реализации проектов.
+                  </span>
                 </li>
               </ul>
             </div>
@@ -43,19 +69,40 @@ const IndexHero = () => {
               <ul className="space-y-3 text-muted-foreground">
                 <li className="flex gap-3">
                   <span className="text-primary font-bold">•</span>
-                  <span><strong className="text-foreground">Опыт и экспертиза:</strong> многолетний опыт работы в горнодобывающей отрасли и глубокие знания в области инжиниринга.</span>
+                  <span>
+                    <strong className="text-foreground">
+                      Опыт и экспертиза:
+                    </strong>{" "}
+                    многолетний опыт работы в горнодобывающей отрасли и глубокие
+                    знания в области инжиниринга.
+                  </span>
                 </li>
                 <li className="flex gap-3">
                   <span className="text-primary font-bold">•</span>
-                  <span><strong className="text-foreground">Индивидуальный подход:</strong> разработка решений, учитывающих уникальные потребности каждого клиента.</span>
+                  <span>
+                    <strong className="text-foreground">
+                      Индивидуальный подход:
+                    </strong>{" "}
+                    разработка решений, учитывающих уникальные потребности
+                    каждого клиента.
+                  </span>
                 </li>
                 <li className="flex gap-3">
                   <span className="text-primary font-bold">•</span>
-                  <span><strong className="text-foreground">Инновации:</strong> использование передовых технологий и методов для достижения наилучших результатов.</span>
+                  <span>
+                    <strong className="text-foreground">Инновации:</strong>{" "}
+                    использование передовых технологий и методов для достижения
+                    наилучших результатов.
+                  </span>
                 </li>
                 <li className="flex gap-3">
                   <span className="text-primary font-bold">•</span>
-                  <span><strong className="text-foreground">Надежность и качество:</strong> строгий контроль качества на всех этапах работы.</span>
+                  <span>
+                    <strong className="text-foreground">
+                      Надежность и качество:
+                    </strong>{" "}
+                    строгий контроль качества на всех этапах работы.
+                  </span>
                 </li>
               </ul>
             </div>
@@ -67,15 +114,30 @@ const IndexHero = () => {
               <ul className="space-y-3 text-muted-foreground">
                 <li className="flex gap-3">
                   <span className="text-primary font-bold">•</span>
-                  <span><strong className="text-foreground">Ответственность:</strong> мы несем ответственность за каждый проект и его результаты.</span>
+                  <span>
+                    <strong className="text-foreground">
+                      Ответственность:
+                    </strong>{" "}
+                    мы несем ответственность за каждый проект и его результаты.
+                  </span>
                 </li>
                 <li className="flex gap-3">
                   <span className="text-primary font-bold">•</span>
-                  <span><strong className="text-foreground">Профессионализм:</strong> высокий уровень квалификации наших специалистов.</span>
+                  <span>
+                    <strong className="text-foreground">
+                      Профессионализм:
+                    </strong>{" "}
+                    высокий уровень квалификации наших специалистов.
+                  </span>
                 </li>
                 <li className="flex gap-3">
                   <span className="text-primary font-bold">•</span>
-                  <span><strong className="text-foreground">Клиентоориентированность:</strong> удовлетворение потребностей клиентов — наш приоритет.</span>
+                  <span>
+                    <strong className="text-foreground">
+                      Клиентоориентированность:
+                    </strong>{" "}
+                    удовлетворение потребностей клиентов — наш приоритет.
+                  </span>
                 </li>
               </ul>
             </div>
