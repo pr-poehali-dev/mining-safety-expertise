@@ -114,10 +114,13 @@ const Index = () => {
           <div className="flex items-center gap-3">
             <img 
               src="https://cdn.poehali.dev/files/55c85bd5-dd2e-4641-94a3-c905f750a895.JPG" 
-              alt="ГорПроект" 
+              alt="СПЭК" 
               className="h-10 w-10 object-contain"
             />
-            <span className="font-heading text-xl font-bold text-primary">ГорПроект</span>
+            <div className="flex flex-col">
+              <span className="font-heading text-base font-bold text-primary leading-tight">Сибирская Проектная</span>
+              <span className="font-heading text-base font-bold text-primary leading-tight">Экспертная Компания</span>
+            </div>
           </div>
           <nav className="hidden md:flex gap-6">
             {['home', 'about', 'services', 'portfolio', 'certificates', 'news', 'vacancies', 'contacts'].map((item) => (
@@ -184,7 +187,7 @@ const Index = () => {
             <div className="grid md:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
               <div className="space-y-6">
                 <p className="text-lg">
-                  <strong>ГорПроект</strong> — ведущая инжиниринговая компания, специализирующаяся на проектировании горных производств и промышленной безопасности.
+                  <strong>Сибирская Проектная Экспертная Компания</strong> — ведущая инжиниринговая компания, специализирующаяся на проектировании горных производств и промышленной безопасности.
                 </p>
                 <p className="text-muted-foreground">
                   Мы предоставляем полный комплекс услуг: от инженерных изысканий и разработки проектной документации до проведения экспертизы промышленной безопасности опасных производственных объектов.
@@ -495,8 +498,12 @@ const Index = () => {
           <div className="grid md:grid-cols-4 gap-8 mb-8">
             <div>
               <div className="flex items-center gap-2 mb-4">
-                <Icon name="Mountain" size={28} />
-                <span className="font-heading text-xl font-bold">ГорПроект</span>
+                <img 
+                  src="https://cdn.poehali.dev/files/55c85bd5-dd2e-4641-94a3-c905f750a895.JPG" 
+                  alt="СПЭК" 
+                  className="h-8 w-8 object-contain brightness-0 invert"
+                />
+                <span className="font-heading text-lg font-bold">СПЭК</span>
               </div>
               <p className="text-white/80 text-sm">
                 Проектирование горных производств и промышленная безопасность
@@ -530,7 +537,7 @@ const Index = () => {
           </div>
           <Separator className="bg-white/20 mb-8" />
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-white/60">
-            <p>© 2024 ГорПроект. Все права защищены.</p>
+            <p>© 2024 Сибирская Проектная Экспертная Компания. Все права защищены.</p>
             <div className="flex gap-4">
               <a href="#" className="hover:text-white transition-colors">Политика конфиденциальности</a>
               <a href="#" className="hover:text-white transition-colors">Правовая информация</a>
