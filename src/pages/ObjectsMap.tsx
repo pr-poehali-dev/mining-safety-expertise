@@ -105,11 +105,12 @@ const ObjectsMap = () => {
           <div className="lg:col-span-2">
             <Card>
               <CardContent className="p-4">
-                <div className="relative bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg overflow-hidden border-2 border-primary/20">
+                <div className="relative bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg overflow-hidden border-2 border-primary/20 min-h-[600px]">
                   <svg
                     ref={mapRef}
                     viewBox="0 0 800 500"
-                    className="w-full h-auto cursor-crosshair"
+                    className="w-full cursor-crosshair"
+                    style={{ height: '600px' }}
                     onClick={handleMapClick}
                   >
                     <rect width="800" height="500" fill="url(#mapGradient)" />
