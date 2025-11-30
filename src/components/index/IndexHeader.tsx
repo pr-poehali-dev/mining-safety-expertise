@@ -1,12 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
 
-interface IndexHeaderProps {
-  activeSection: string;
-  scrollToSection: (section: string) => void;
-}
-
-const IndexHeader = ({ activeSection, scrollToSection }: IndexHeaderProps) => {
+const IndexHeader = () => {
   const navigate = useNavigate();
 
   return (
@@ -27,10 +22,8 @@ const IndexHeader = ({ activeSection, scrollToSection }: IndexHeaderProps) => {
         </div>
         <nav className="hidden md:flex items-center gap-6 lg:gap-8 flex-1 justify-center">
           <button
-            onClick={() => scrollToSection('home')}
-            className={`text-base font-medium transition-colors hover:text-secondary whitespace-nowrap ${
-              activeSection === 'home' ? 'text-secondary' : 'text-white/90'
-            }`}
+            onClick={() => navigate('/')}
+            className="text-base font-medium transition-colors hover:text-secondary whitespace-nowrap text-white/90"
           >
             Главная
           </button>

@@ -1,56 +1,83 @@
-import { Button } from "@/components/ui/button";
-
-interface IndexHeroProps {
-  scrollToSection: (section: string) => void;
-}
-
-const IndexHero = ({ scrollToSection }: IndexHeroProps) => {
+const IndexHero = () => {
   return (
-    <section id="home" className="relative py-16 bg-white border-b">
-      <div className="container">
-        <div className="grid md:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
+    <section id="home" className="relative py-16 bg-white">
+      <div className="container max-w-6xl">
+        <div className="space-y-8">
+          <h1 className="font-heading text-3xl md:text-4xl font-bold text-foreground">
+            Добро пожаловать на сайт Сибирской Проектной Экспертной Компании (ООО «СПЭК»)!
+          </h1>
+          
+          <p className="text-lg text-muted-foreground">
+            Мы — команда профессионалов, специализирующихся на горных производствах. Наша миссия — предоставлять комплексные инженерные решения, которые помогают нашим клиентам достигать высоких результатов в горнодобывающей отрасли.
+          </p>
+
           <div className="space-y-6">
-            <h1 className="font-heading text-4xl md:text-5xl font-bold text-foreground">
-              Предоставление комплексных инжиниринговых услуг для предприятий
-              горной промышленности
-            </h1>
-            <p className="text-lg text-muted-foreground">
-              Полный цикл работ: проектирование, экспертиза промышленной
-              безопасности, инженерные изыскания
-            </p>
-            <div className="flex flex-wrap gap-4">
-              <Button size="lg" onClick={() => scrollToSection("services")}>
-                Наши услуги
-              </Button>
-              <Button size="lg" variant="outline">
-                Портфолио проектов
-              </Button>
+            <div>
+              <h2 className="font-heading text-2xl font-semibold text-foreground mb-4">
+                Что мы предлагаем:
+              </h2>
+              <ul className="space-y-3 text-muted-foreground">
+                <li className="flex gap-3">
+                  <span className="text-primary font-bold">•</span>
+                  <span><strong className="text-foreground">Проектирование и инжиниринг:</strong> от разработки концепции до реализации проектов в горнодобывающей отрасли.</span>
+                </li>
+                <li className="flex gap-3">
+                  <span className="text-primary font-bold">•</span>
+                  <span><strong className="text-foreground">Технологические решения:</strong> внедрение передовых технологий для повышения эффективности и безопасности горных работ.</span>
+                </li>
+                <li className="flex gap-3">
+                  <span className="text-primary font-bold">•</span>
+                  <span><strong className="text-foreground">Экологическая ответственность:</strong> рекультивация нарушенных земель и минимизация воздействия на окружающую среду.</span>
+                </li>
+                <li className="flex gap-3">
+                  <span className="text-primary font-bold">•</span>
+                  <span><strong className="text-foreground">Консультации и поддержка:</strong> экспертные консультации на всех этапах реализации проектов.</span>
+                </li>
+              </ul>
             </div>
-          </div>
-          <div className="bg-gradient-to-br from-primary/5 to-secondary/5 rounded-lg p-8">
-            <div className="grid grid-cols-1 gap-6">
-              <div className="bg-white p-6 rounded-lg shadow-sm border">
-                <div className="text-3xl font-bold font-heading text-primary mb-2">
-                  Основана в 2009 году
-                </div>
-                <div className="text-muted-foreground"></div>
-              </div>
-              <div className="bg-white p-6 rounded-lg shadow-sm border">
-                <div className="text-3xl font-bold font-heading text-primary mb-2">
-                  200+
-                </div>
-                <div className="text-muted-foreground">
-                  реализованных проектов
-                </div>
-              </div>
-              <div className="bg-white p-6 rounded-lg shadow-sm border">
-                <div className="text-3xl font-bold font-heading text-primary mb-2">
-                  50+
-                </div>
-                <div className="text-muted-foreground">
-                  специалистов в штате
-                </div>
-              </div>
+
+            <div>
+              <h2 className="font-heading text-2xl font-semibold text-foreground mb-4">
+                Почему выбирают нас:
+              </h2>
+              <ul className="space-y-3 text-muted-foreground">
+                <li className="flex gap-3">
+                  <span className="text-primary font-bold">•</span>
+                  <span><strong className="text-foreground">Опыт и экспертиза:</strong> многолетний опыт работы в горнодобывающей отрасли и глубокие знания в области инжиниринга.</span>
+                </li>
+                <li className="flex gap-3">
+                  <span className="text-primary font-bold">•</span>
+                  <span><strong className="text-foreground">Индивидуальный подход:</strong> разработка решений, учитывающих уникальные потребности каждого клиента.</span>
+                </li>
+                <li className="flex gap-3">
+                  <span className="text-primary font-bold">•</span>
+                  <span><strong className="text-foreground">Инновации:</strong> использование передовых технологий и методов для достижения наилучших результатов.</span>
+                </li>
+                <li className="flex gap-3">
+                  <span className="text-primary font-bold">•</span>
+                  <span><strong className="text-foreground">Надежность и качество:</strong> строгий контроль качества на всех этапах работы.</span>
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <h2 className="font-heading text-2xl font-semibold text-foreground mb-4">
+                Наши ценности:
+              </h2>
+              <ul className="space-y-3 text-muted-foreground">
+                <li className="flex gap-3">
+                  <span className="text-primary font-bold">•</span>
+                  <span><strong className="text-foreground">Ответственность:</strong> мы несем ответственность за каждый проект и его результаты.</span>
+                </li>
+                <li className="flex gap-3">
+                  <span className="text-primary font-bold">•</span>
+                  <span><strong className="text-foreground">Профессионализм:</strong> высокий уровень квалификации наших специалистов.</span>
+                </li>
+                <li className="flex gap-3">
+                  <span className="text-primary font-bold">•</span>
+                  <span><strong className="text-foreground">Клиентоориентированность:</strong> удовлетворение потребностей клиентов — наш приоритет.</span>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
