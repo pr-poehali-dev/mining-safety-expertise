@@ -85,26 +85,26 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container flex h-16 items-center justify-between">
+      <header className="sticky top-0 z-50 w-full bg-primary shadow-sm">
+        <div className="container flex h-20 items-center justify-between">
           <div className="flex items-center gap-4">
             <img 
               src="https://cdn.poehali.dev/files/55c85bd5-dd2e-4641-94a3-c905f750a895.JPG" 
               alt="СПЭК" 
-              className="h-14 w-20 object-contain brightness-100 contrast-125"
+              className="h-14 w-20 object-contain brightness-0 invert"
             />
             <div className="flex flex-col">
-              <span className="font-heading font-extrabold leading-tight mx-0 px-0 py-0 my-0 text-[#000000] text-xs">Сибирская Проектная</span>
-              <span className="font-heading font-extrabold text-primary leading-tight text-xs">Экспертная Компания</span>
+              <span className="font-heading font-bold leading-tight text-white text-sm">Сибирская Проектная</span>
+              <span className="font-heading font-bold text-white/90 leading-tight text-sm">Экспертная Компания</span>
             </div>
           </div>
-          <nav className="hidden md:flex gap-6">
+          <nav className="hidden lg:flex gap-8">
             {['home', 'about', 'services', 'certificates', 'news', 'vacancies', 'contacts'].map((item) => (
               <button
                 key={item}
                 onClick={() => scrollToSection(item)}
-                className={`text-sm font-medium transition-colors hover:text-primary ${
-                  activeSection === item ? 'text-primary' : 'text-muted-foreground'
+                className={`text-sm font-medium transition-colors hover:text-secondary ${
+                  activeSection === item ? 'text-secondary' : 'text-white/90'
                 }`}
               >
                 {item === 'home' && 'Главная'}
@@ -117,129 +117,102 @@ const Index = () => {
               </button>
             ))}
           </nav>
-          <Button>Оставить заявку</Button>
+          <Button variant="secondary" size="sm" className="hidden md:block">Поиск</Button>
         </div>
       </header>
 
       <main>
-        <section id="home" className="relative min-h-[600px] flex items-center justify-center overflow-hidden bg-gradient-to-br from-primary via-primary/90 to-secondary">
-          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48cGF0dGVybiBpZD0iZ3JpZCIgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiBwYXR0ZXJuVW5pdHM9InVzZXJTcGFjZU9uVXNlIj48cGF0aCBkPSJNIDQwIDAgTCAwIDAgMCA0MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLW9wYWNpdHk9IjAuMSIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIi8+PC9zdmc+')] opacity-20"></div>
-          <div className="container relative z-10 text-center text-white animate-fade-in">
-            <h1 className="font-heading text-5xl md:text-6xl font-bold mb-6">
-              Проектирование горных производств
-            </h1>
-            <p className="text-xl md:text-2xl mb-8 text-white/90 max-w-3xl mx-auto">
-              Полный цикл работ: проектирование, экспертиза промышленной безопасности, инженерные изыскания
-            </p>
-            <div className="flex flex-wrap justify-center gap-4 mb-12">
-              <Button size="lg" variant="secondary" onClick={() => scrollToSection('services')}>
-                Наши услуги
-              </Button>
-              <Button size="lg" variant="outline" className="bg-white/10 text-white border-white hover:bg-white hover:text-primary">
-                Портфолио проектов
-              </Button>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto mt-16">
-              <div className="text-center animate-scale-in">
-                <div className="text-4xl font-bold font-heading mb-2">15+</div>
-                <div className="text-white/80">лет на рынке</div>
-              </div>
-              <div className="text-center animate-scale-in" style={{ animationDelay: '0.1s' }}>
-                <div className="text-4xl font-bold font-heading mb-2">200+</div>
-                <div className="text-white/80">реализованных проектов</div>
-              </div>
-              <div className="text-center animate-scale-in" style={{ animationDelay: '0.2s' }}>
-                <div className="text-4xl font-bold font-heading mb-2">50+</div>
-                <div className="text-white/80">специалистов в штате</div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section id="about" className="py-20 bg-muted/30">
+        <section id="home" className="relative py-16 bg-white border-b">
           <div className="container">
-            <h2 className="font-heading text-4xl font-bold text-center mb-12">О компании</h2>
             <div className="grid md:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
               <div className="space-y-6">
-                <p className="text-lg">
-                  <strong>Сибирская Проектная Экспертная Компания</strong> — ведущая инжиниринговая компания, специализирующаяся на проектировании горных производств и промышленной безопасности.
+                <h1 className="font-heading text-4xl md:text-5xl font-bold text-foreground">
+                  Проектирование горных производств и промышленная безопасность
+                </h1>
+                <p className="text-lg text-muted-foreground">
+                  Полный цикл работ: проектирование, экспертиза промышленной безопасности, инженерные изыскания
                 </p>
-                <p className="text-muted-foreground">
-                  Мы предоставляем полный комплекс услуг: от инженерных изысканий и разработки проектной документации до проведения экспертизы промышленной безопасности опасных производственных объектов.
-                </p>
-                <div className="flex flex-wrap gap-3">
-                  <Badge variant="secondary" className="px-4 py-2">Опыт 15+ лет</Badge>
-                  <Badge variant="secondary" className="px-4 py-2">200+ проектов</Badge>
-                  <Badge variant="secondary" className="px-4 py-2">Все лицензии</Badge>
+                <div className="flex flex-wrap gap-4">
+                  <Button size="lg" onClick={() => scrollToSection('services')}>
+                    Наши услуги
+                  </Button>
+                  <Button size="lg" variant="outline">
+                    Портфолио проектов
+                  </Button>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4">
-                <Card>
-                  <CardHeader>
-                    <Icon name="Award" className="text-primary mb-2" size={32} />
-                    <CardTitle className="text-2xl">15+</CardTitle>
-                    <CardDescription>лет опыта</CardDescription>
-                  </CardHeader>
-                </Card>
-                <Card>
-                  <CardHeader>
-                    <Icon name="Users" className="text-primary mb-2" size={32} />
-                    <CardTitle className="text-2xl">50+</CardTitle>
-                    <CardDescription>специалистов</CardDescription>
-                  </CardHeader>
-                </Card>
-                <Card>
-                  <CardHeader>
-                    <Icon name="FolderCheck" className="text-primary mb-2" size={32} />
-                    <CardTitle className="text-2xl">200+</CardTitle>
-                    <CardDescription>проектов</CardDescription>
-                  </CardHeader>
-                </Card>
-                <Card>
-                  <CardHeader>
-                    <Icon name="MapPin" className="text-primary mb-2" size={32} />
-                    <CardTitle className="text-2xl">30+</CardTitle>
-                    <CardDescription>регионов РФ</CardDescription>
-                  </CardHeader>
-                </Card>
+              <div className="bg-gradient-to-br from-primary/5 to-secondary/5 rounded-lg p-8">
+                <div className="grid grid-cols-1 gap-6">
+                  <div className="bg-white p-6 rounded-lg shadow-sm border">
+                    <div className="text-3xl font-bold font-heading text-primary mb-2">15+</div>
+                    <div className="text-muted-foreground">лет на рынке</div>
+                  </div>
+                  <div className="bg-white p-6 rounded-lg shadow-sm border">
+                    <div className="text-3xl font-bold font-heading text-primary mb-2">200+</div>
+                    <div className="text-muted-foreground">реализованных проектов</div>
+                  </div>
+                  <div className="bg-white p-6 rounded-lg shadow-sm border">
+                    <div className="text-3xl font-bold font-heading text-primary mb-2">50+</div>
+                    <div className="text-muted-foreground">специалистов в штате</div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </section>
 
-        <section id="services" className="py-20">
+        <section id="about" className="py-16 bg-background">
           <div className="container">
-            <h2 className="font-heading text-4xl font-bold text-center mb-4">Наши услуги</h2>
-            <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
-              Полный комплекс инжиниринговых услуг для горнодобывающей и перерабатывающей промышленности
-            </p>
-            <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            <h2 className="font-heading text-3xl font-bold mb-8">О компании</h2>
+            <div className="max-w-4xl">
+              <p className="text-lg mb-4">
+                <strong>Сибирская Проектная Экспертная Компания</strong> — ведущая инжиниринговая компания, специализирующаяся на проектировании горных производств и промышленной безопасности.
+              </p>
+              <p className="text-muted-foreground mb-6">
+                Мы предоставляем полный комплекс услуг: от инженерных изысканий и разработки проектной документации до проведения экспертизы промышленной безопасности опасных производственных объектов.
+              </p>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-8">
+                <div className="text-center p-4 bg-white rounded-lg border">
+                  <div className="text-2xl font-bold text-primary mb-1">15+</div>
+                  <div className="text-sm text-muted-foreground">лет опыта</div>
+                </div>
+                <div className="text-center p-4 bg-white rounded-lg border">
+                  <div className="text-2xl font-bold text-primary mb-1">200+</div>
+                  <div className="text-sm text-muted-foreground">проектов</div>
+                </div>
+                <div className="text-center p-4 bg-white rounded-lg border">
+                  <div className="text-2xl font-bold text-primary mb-1">50+</div>
+                  <div className="text-sm text-muted-foreground">специалистов</div>
+                </div>
+                <div className="text-center p-4 bg-white rounded-lg border">
+                  <div className="text-2xl font-bold text-primary mb-1">30+</div>
+                  <div className="text-sm text-muted-foreground">регионов РФ</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="services" className="py-16 bg-white border-t border-b">
+          <div className="container">
+            <h2 className="font-heading text-3xl font-bold mb-8">Услуги</h2>
+            <div className="grid md:grid-cols-3 gap-6 max-w-6xl">
               {services.map((service, index) => (
-                <Card key={index} className="hover:shadow-lg transition-shadow animate-slide-up" style={{ animationDelay: `${index * 0.1}s` }}>
-                  <CardHeader>
-                    <div className="w-14 h-14 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                      <Icon name={service.icon} className="text-primary" size={28} />
-                    </div>
-                    <CardTitle className="text-xl">{service.title}</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-muted-foreground">{service.description}</p>
-                    <Button variant="link" className="mt-4 px-0">
-                      Подробнее <Icon name="ArrowRight" size={16} className="ml-1" />
-                    </Button>
-                  </CardContent>
-                </Card>
+                <div key={index} className="bg-background p-6 rounded-lg border hover:border-secondary transition-colors">
+                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
+                    <Icon name={service.icon} className="text-primary" size={24} />
+                  </div>
+                  <h3 className="font-heading text-lg font-semibold mb-3">{service.title}</h3>
+                  <p className="text-muted-foreground text-sm">{service.description}</p>
+                </div>
               ))}
             </div>
           </div>
         </section>
 
-        <section id="certificates" className="py-20">
+        <section id="certificates" className="py-16 bg-background">
           <div className="container">
-            <h2 className="font-heading text-4xl font-bold text-center mb-4">Квалификация и лицензии</h2>
-            <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
-              Все необходимые разрешительные документы и сертификаты для выполнения работ
-            </p>
+            <h2 className="font-heading text-3xl font-bold mb-8">Квалификация и лицензии</h2>
             <Tabs defaultValue="licenses" className="max-w-4xl mx-auto">
               <TabsList className="grid w-full grid-cols-2">
                 <TabsTrigger value="licenses">Лицензии и допуски</TabsTrigger>
@@ -295,9 +268,9 @@ const Index = () => {
           </div>
         </section>
 
-        <section id="news" className="py-20 bg-muted/30">
+        <section id="news" className="py-16 bg-white border-t border-b">
           <div className="container">
-            <h2 className="font-heading text-4xl font-bold text-center mb-12">Новости компании</h2>
+            <h2 className="font-heading text-3xl font-bold mb-8">Новости компании</h2>
             <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
               {news.map((item, index) => (
                 <Card key={index} className="hover:shadow-lg transition-shadow">
@@ -317,12 +290,9 @@ const Index = () => {
           </div>
         </section>
 
-        <section id="vacancies" className="py-20">
+        <section id="vacancies" className="py-16 bg-background">
           <div className="container">
-            <h2 className="font-heading text-4xl font-bold text-center mb-4">Открытые вакансии</h2>
-            <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
-              Присоединяйтесь к команде профессионалов
-            </p>
+            <h2 className="font-heading text-3xl font-bold mb-8">Открытые вакансии</h2>
             <div className="max-w-4xl mx-auto space-y-4">
               {vacancies.map((vacancy, index) => (
                 <Card key={index} className="hover:shadow-lg transition-shadow">
@@ -353,9 +323,9 @@ const Index = () => {
           </div>
         </section>
 
-        <section id="contacts" className="py-20 bg-muted/30">
+        <section id="contacts" className="py-16 bg-white border-t">
           <div className="container">
-            <h2 className="font-heading text-4xl font-bold text-center mb-12">Контакты</h2>
+            <h2 className="font-heading text-3xl font-bold mb-8">Контакты</h2>
             <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
               <Card>
                 <CardHeader>
@@ -435,7 +405,7 @@ const Index = () => {
         </section>
       </main>
 
-      <footer className="bg-primary text-white py-12">
+      <footer className="bg-primary text-white py-8">
         <div className="container">
           <div className="grid md:grid-cols-4 gap-8 mb-8">
             <div>
