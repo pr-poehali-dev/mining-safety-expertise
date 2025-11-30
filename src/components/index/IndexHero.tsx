@@ -31,7 +31,7 @@ const IndexHero = ({ scrollToSection }: IndexHeroProps) => {
             <div className="grid grid-cols-1 gap-6">
               <div className="bg-white p-6 rounded-lg shadow-sm border">
                 <div className="text-3xl font-bold font-heading text-primary mb-2">
-                  15+
+                  Основана в 2009 году
                 </div>
                 <div className="text-muted-foreground">лет на рынке</div>
               </div>
