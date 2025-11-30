@@ -124,26 +124,20 @@ const Index = () => {
                 Услуги
               </button>
               <button
-                onClick={() => scrollToSection('certificates')}
-                className={`text-base font-medium transition-colors hover:text-secondary whitespace-nowrap ${
-                  activeSection === 'certificates' ? 'text-secondary' : 'text-white/90'
-                }`}
+                onClick={() => navigate('/certificates')}
+                className="text-base font-medium transition-colors hover:text-secondary whitespace-nowrap text-white/90"
               >
                 Квалификация
               </button>
               <button
-                onClick={() => scrollToSection('news')}
-                className={`text-base font-medium transition-colors hover:text-secondary whitespace-nowrap ${
-                  activeSection === 'news' ? 'text-secondary' : 'text-white/90'
-                }`}
+                onClick={() => navigate('/news')}
+                className="text-base font-medium transition-colors hover:text-secondary whitespace-nowrap text-white/90"
               >
                 Новости
               </button>
               <button
-                onClick={() => scrollToSection('vacancies')}
-                className={`text-base font-medium transition-colors hover:text-secondary whitespace-nowrap ${
-                  activeSection === 'vacancies' ? 'text-secondary' : 'text-white/90'
-                }`}
+                onClick={() => navigate('/vacancies')}
+                className="text-base font-medium transition-colors hover:text-secondary whitespace-nowrap text-white/90"
               >
                 Вакансии
               </button>
