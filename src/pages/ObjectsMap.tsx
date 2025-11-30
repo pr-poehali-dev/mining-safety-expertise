@@ -54,6 +54,7 @@ const ObjectsMap = () => {
   const [objects, setObjects] = useState<ObjectMarker[]>(loadObjectsFromStorage);
   const [hoveredObject, setHoveredObject] = useState<number | null>(null);
   const [selectedType, setSelectedType] = useState<string>('all');
+  const [searchQuery, setSearchQuery] = useState<string>('');
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [editingObject, setEditingObject] = useState<ObjectMarker | null>(null);
@@ -66,9 +67,17 @@ const ObjectsMap = () => {
     description: ''
   });
 
-  const filteredObjects = selectedType === 'all' 
-    ? objects 
-    : objects.filter(obj => obj.type === selectedType);
+  const filteredObjects = objects
+    .filter(obj => selectedType === 'all' || obj.type === selectedType)
+    .filter(obj => {
+      if (!searchQuery.trim()) return true;
+      const query = searchQuery.toLowerCase();
+      return (
+        obj.name.toLowerCase().includes(query) ||
+        obj.region?.toLowerCase().includes(query) ||
+        obj.description?.toLowerCase().includes(query)
+      );
+    });
 
   const getTypeLabel = (type?: string) => {
     switch (type) {
@@ -152,6 +161,19 @@ const ObjectsMap = () => {
               <Icon name="Plus" size={18} />
               Добавить
             </Button>
+          </div>
+        </div>
+
+        <div className="mb-6">
+          <div className="relative max-w-md">
+            <Icon name="Search" size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
+            <Input
+              type="text"
+              placeholder="Поиск по названию, региону или описанию..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="pl-10"
+            />
           </div>
         </div>
 

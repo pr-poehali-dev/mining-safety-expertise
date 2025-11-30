@@ -1,8 +1,13 @@
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import Icon from '@/components/ui/icon';
 
 const IndexHeader = () => {
   const navigate = useNavigate();
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   return (
     <header className="sticky top-0 z-20 w-full bg-primary shadow-sm">
@@ -70,8 +75,93 @@ const IndexHeader = () => {
             Контакты
           </button>
         </nav>
-        <Button variant="secondary" className="ml-auto">Поиск</Button>
+        <Button 
+          variant="secondary" 
+          className="ml-auto gap-2"
+          onClick={() => setIsSearchOpen(true)}
+        >
+          <Icon name="Search" size={16} />
+          Поиск
+        </Button>
       </div>
+
+      <Dialog open={isSearchOpen} onOpenChange={setIsSearchOpen}>
+        <DialogContent className="max-w-2xl">
+          <DialogHeader>
+            <DialogTitle>Поиск по сайту</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4">
+            <div className="relative">
+              <Icon name="Search" size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
+              <Input
+                type="text"
+                placeholder="Введите запрос..."
+                className="pl-10"
+                autoFocus
+              />
+            </div>
+            <div className="text-sm text-muted-foreground">
+              <p className="mb-2 font-medium">Быстрые ссылки:</p>
+              <div className="grid grid-cols-2 gap-2">
+                <button
+                  onClick={() => {
+                    setIsSearchOpen(false);
+                    navigate('/services');
+                  }}
+                  className="text-left p-2 rounded hover:bg-accent transition-colors"
+                >
+                  Услуги компании
+                </button>
+                <button
+                  onClick={() => {
+                    setIsSearchOpen(false);
+                    navigate('/about');
+                  }}
+                  className="text-left p-2 rounded hover:bg-accent transition-colors"
+                >
+                  О компании
+                </button>
+                <button
+                  onClick={() => {
+                    setIsSearchOpen(false);
+                    navigate('/certificates');
+                  }}
+                  className="text-left p-2 rounded hover:bg-accent transition-colors"
+                >
+                  Квалификация
+                </button>
+                <button
+                  onClick={() => {
+                    setIsSearchOpen(false);
+                    navigate('/objects-map');
+                  }}
+                  className="text-left p-2 rounded hover:bg-accent transition-colors"
+                >
+                  Карта объектов
+                </button>
+                <button
+                  onClick={() => {
+                    setIsSearchOpen(false);
+                    navigate('/vacancies');
+                  }}
+                  className="text-left p-2 rounded hover:bg-accent transition-colors"
+                >
+                  Вакансии
+                </button>
+                <button
+                  onClick={() => {
+                    setIsSearchOpen(false);
+                    navigate('/contacts');
+                  }}
+                  className="text-left p-2 rounded hover:bg-accent transition-colors"
+                >
+                  Контакты
+                </button>
+              </div>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </header>
   );
 };
