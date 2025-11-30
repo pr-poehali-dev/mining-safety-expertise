@@ -7,9 +7,9 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { useNavigate } from "react-router-dom";
 import Icon from "@/components/ui/icon";
 import RussiaMapSVG from "@/components/objects-map/RussiaMapSVG";
+import IndexHeader from '@/components/index/IndexHeader';
 
 interface ObjectMarker {
   id: number;
@@ -51,7 +51,6 @@ const loadObjectsFromStorage = (): ObjectMarker[] => {
 };
 
 const ObjectsMap = () => {
-  const navigate = useNavigate();
   const [objects, setObjects] = useState<ObjectMarker[]>(loadObjectsFromStorage);
   const [hoveredObject, setHoveredObject] = useState<number | null>(null);
   const [selectedType, setSelectedType] = useState<string>('all');
@@ -134,27 +133,7 @@ const ObjectsMap = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <header className="sticky top-0 z-20 w-full bg-primary shadow-sm">
-        <div className="container flex h-24 items-center gap-6">
-          <button onClick={() => navigate('/')} className="flex items-center gap-4">
-            <div className="h-16 w-16 flex-shrink-0">
-              <img 
-                src="https://cdn.poehali.dev/files/35047487-09a0-4e51-86f1-5e184b7d5afa.png" 
-                alt="СПЭК" 
-                className="h-full w-full object-contain"
-              />
-            </div>
-            <div className="hidden lg:flex flex-col">
-              <span className="font-heading font-bold leading-tight text-white text-base">Сибирская Проектная</span>
-              <span className="font-heading font-bold text-white/90 leading-tight text-base">Экспертная Компания</span>
-            </div>
-          </button>
-          <Button variant="secondary" size="sm" className="ml-auto" onClick={() => navigate('/')}>
-            <Icon name="Home" size={16} className="mr-2" />
-            На главную
-          </Button>
-        </div>
-      </header>
+      <IndexHeader />
 
       <main className="container py-8">
         <div className="flex flex-col lg:flex-row gap-4 items-start mb-6">
