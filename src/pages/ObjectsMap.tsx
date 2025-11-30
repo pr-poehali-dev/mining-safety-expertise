@@ -189,81 +189,18 @@ const ObjectsMap = () => {
           </Button>
         </div>
 
-        <div className="grid lg:grid-cols-3 gap-6">
-          <div className="lg:col-span-2">
-            <Card>
-              <CardContent className="p-0">
-                <div className="relative bg-background rounded-lg overflow-hidden aspect-video">
-                  <RussiaMapSVG 
-                    objects={filteredObjects}
-                    onObjectHover={setHoveredObject}
-                    hoveredObject={hoveredObject}
-                  />
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-
-          <div className="space-y-4">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Icon name="MapPin" size={20} />
-                  Список объектов
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-2 max-h-[600px] overflow-y-auto pr-2">
-                  {filteredObjects.map((obj) => (
-                    <div
-                      key={obj.id}
-                      className={`p-3 rounded-lg border transition-all ${
-                        hoveredObject === obj.id
-                          ? 'bg-primary/5 border-primary shadow-sm'
-                          : 'bg-background hover:bg-accent'
-                      }`}
-                      onMouseEnter={() => setHoveredObject(obj.id)}
-                      onMouseLeave={() => setHoveredObject(null)}
-                    >
-                      <div className="flex items-start gap-2">
-                        <div className={`w-3 h-3 rounded-full mt-1 flex-shrink-0 ${getTypeColor(obj.type)}`} />
-                        <div className="flex-1 min-w-0">
-                          <div className="font-semibold text-sm mb-1">{obj.name}</div>
-                          <Badge variant="outline" className="text-xs mb-1">
-                            {getTypeLabel(obj.type)}
-                          </Badge>
-                          {obj.region && (
-                            <div className="text-xs text-muted-foreground flex items-center gap-1 mt-1">
-                              <Icon name="MapPin" size={12} />
-                              {obj.region}
-                            </div>
-                          )}
-                        </div>
-                        <div className="flex gap-1">
-                          <Button
-                Center size="sm"
-                            variant="ghost"
-                            onClick={() => openEditDialog(obj)}
-                            className="h-8 w-8 p-0"
-                          >
-                            <Icon name="Edit" size={14} />
-                          </Button>
-                          <Button
-                            size="sm"
-                            variant="ghost"
-                            onClick={() => handleDeleteObject(obj.id)}
-                            className="h-8 w-8 p-0 text-destructive hover:text-destructive"
-                          >
-                            <Icon name="Trash2" size={14} />
-                          </Button>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          </div>
+        <div className="max-w-6xl mx-auto">
+          <Card>
+            <CardContent className="p-0">
+              <div className="relative bg-background rounded-lg overflow-hidden aspect-video">
+                <RussiaMapSVG 
+                  objects={filteredObjects}
+                  onObjectHover={setHoveredObject}
+                  hoveredObject={hoveredObject}
+                />
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </main>
 
