@@ -56,6 +56,8 @@ const ObjectsMap = () => {
   const [selectedObject, setSelectedObject] = useState<ObjectMarker | null>(null);
   const [isInfoDialogOpen, setIsInfoDialogOpen] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
+  const [draggingObject, setDraggingObject] = useState<number | null>(null);
+  const [mapRect, setMapRect] = useState<DOMRect | null>(null);
   const [selectedType, setSelectedType] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
@@ -143,6 +145,33 @@ const ObjectsMap = () => {
     setIsEditDialogOpen(true);
   };
 
+  const handleDragStart = (e: React.MouseEvent, objId: number) => {
+    e.preventDefault();
+    setDraggingObject(objId);
+    const mapElement = (e.target as HTMLElement).closest('.map-container');
+    if (mapElement) {
+      setMapRect(mapElement.getBoundingClientRect());
+    }
+  };
+
+  const handleDragMove = (e: React.MouseEvent) => {
+    if (draggingObject === null || !mapRect) return;
+    
+    const x = ((e.clientX - mapRect.left) / mapRect.width) * 1500;
+    const y = ((e.clientY - mapRect.top) / mapRect.height) * 700;
+    
+    setObjects(objects.map(obj => 
+      obj.id === draggingObject 
+        ? { ...obj, x: Math.max(0, Math.min(1500, x)), y: Math.max(0, Math.min(700, y)) }
+        : obj
+    ));
+  };
+
+  const handleDragEnd = () => {
+    setDraggingObject(null);
+    setMapRect(null);
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <IndexHeader />
@@ -225,7 +254,12 @@ const ObjectsMap = () => {
         <div className="max-w-6xl mx-auto">
           <Card>
             <CardContent className="p-4">
-              <div className="relative rounded-lg overflow-hidden">
+              <div 
+                className="relative rounded-lg overflow-hidden map-container"
+                onMouseMove={isEditMode ? handleDragMove : undefined}
+                onMouseUp={isEditMode ? handleDragEnd : undefined}
+                onMouseLeave={isEditMode ? handleDragEnd : undefined}
+              >
                 <img 
                   src="https://cdn.poehali.dev/files/73dddc8d-5a17-4785-a7f2-5a3372646b73.png"
                   alt="Карта России с объектами"
@@ -255,7 +289,11 @@ const ObjectsMap = () => {
                         >
                           <Icon name="Edit" size={14} />
                         </Button>
-                        <div className={`w-4 h-4 rounded-full ${getTypeColor(obj.type)}`} />
+                        <div 
+                          className={`w-4 h-4 rounded-full cursor-move ${getTypeColor(obj.type)} ${draggingObject === obj.id ? 'ring-2 ring-white shadow-lg scale-125' : ''}`}
+                          onMouseDown={(e) => handleDragStart(e, obj.id)}
+                          title="Перетащить"
+                        />
                         <Button
                           size="sm"
                           variant="ghost"
