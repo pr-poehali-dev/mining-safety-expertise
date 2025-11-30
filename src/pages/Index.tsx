@@ -88,11 +88,14 @@ const Index = () => {
         <header className="sticky top-0 z-20 w-full bg-primary shadow-sm">
           <div className="container flex h-16 items-center gap-3">
             <div className="flex items-center gap-2">
-              <img 
-                src="https://cdn.poehali.dev/files/ab6c9bc2-36fd-4078-8b68-ed2d7a95c50b.png" 
-                alt="СПЭК" 
-                className="h-9 w-9 flex-shrink-0 brightness-0 invert rounded-lg object-contain mx-0 my-0 px-0 py-0"
-              />
+              <div className="h-9 w-9 flex-shrink-0 bg-primary flex items-center justify-center">
+                <img 
+                  src="https://cdn.poehali.dev/files/ab6c9bc2-36fd-4078-8b68-ed2d7a95c50b.png" 
+                  alt="СПЭК" 
+                  className="h-8 w-8 object-contain"
+                  style={{ filter: 'brightness(0) invert(1)' }}
+                />
+              </div>
               <div className="hidden lg:flex flex-col">
                 <span className="font-heading font-bold leading-tight text-white text-[10px]">Сибирская Проектная</span>
                 <span className="font-heading font-bold text-white/90 leading-tight text-[10px]">Экспертная Компания (СПЭК)</span>
