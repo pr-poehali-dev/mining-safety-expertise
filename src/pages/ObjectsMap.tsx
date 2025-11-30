@@ -193,10 +193,6 @@ const ObjectsMap = () => {
               <Icon name="Edit" size={16} />
               {isEditMode ? 'Готово' : 'Редактировать'}
             </Button>
-            <Button variant="outline" onClick={handleResetToDefault} className="gap-2">
-              <Icon name="RotateCcw" size={16} />
-              Сбросить
-            </Button>
             <Button onClick={() => setIsAddDialogOpen(true)} className="gap-2">
               <Icon name="Plus" size={18} />
               Добавить
