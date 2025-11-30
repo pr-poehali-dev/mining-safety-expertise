@@ -113,31 +113,66 @@ const ObjectsMap = () => {
                     style={{ height: '600px' }}
                     onClick={handleMapClick}
                   >
-                    <rect width="800" height="500" fill="#f0f9ff" />
+                    <rect width="800" height="500" fill="#f8fafc" />
                     
-                    <path
-                      d="M 50 180 L 120 160 L 180 140 L 250 130 L 320 140 L 380 150 L 450 145 L 520 150 L 590 155 L 650 160 L 710 170 L 740 190 L 750 220 L 745 250 L 730 280 L 710 310 L 680 330 L 640 340 L 590 345 L 530 350 L 470 345 L 410 340 L 350 330 L 290 320 L 230 300 L 180 280 L 130 260 L 90 230 L 60 200 Z"
-                      fill="#3b82f6"
-                      opacity="0.7"
-                      stroke="#1e40af"
-                      strokeWidth="3"
-                    />
+                    <g id="central-russia">
+                      <path d="M 120 200 L 150 180 L 180 175 L 210 180 L 230 195 L 235 215 L 225 235 L 200 245 L 170 240 L 140 225 Z" 
+                        fill="#e0f2fe" stroke="#0284c7" strokeWidth="1.5" opacity="0.8" />
+                      <text x="180" y="215" fontSize="8" fill="#0369a1" textAnchor="middle">Московская</text>
+                    </g>
                     
-                    <text x="400" y="260" textAnchor="middle" fill="#1e40af" fontSize="64" fontWeight="bold" opacity="0.15">
-                      РОССИЯ
-                    </text>
+                    <g id="volga">
+                      <path d="M 235 215 L 260 210 L 285 215 L 300 230 L 295 250 L 275 260 L 250 255 L 235 240 Z" 
+                        fill="#dbeafe" stroke="#0284c7" strokeWidth="1.5" opacity="0.8" />
+                      <text x="270" y="235" fontSize="8" fill="#0369a1" textAnchor="middle">Поволжье</text>
+                    </g>
                     
-                    <circle cx="200" cy="210" r="3" fill="#94a3b8" opacity="0.5" />
-                    <text x="200" y="200" textAnchor="middle" fontSize="10" fill="#64748b">Москва</text>
+                    <g id="ural">
+                      <path d="M 300 180 L 330 170 L 360 175 L 380 195 L 375 220 L 360 240 L 330 235 L 310 215 Z" 
+                        fill="#e0f2fe" stroke="#0284c7" strokeWidth="1.5" opacity="0.8" />
+                      <text x="345" y="210" fontSize="8" fill="#0369a1" textAnchor="middle">Урал</text>
+                    </g>
                     
-                    <circle cx="550" cy="240" r="3" fill="#94a3b8" opacity="0.5" />
-                    <text x="550" y="230" textAnchor="middle" fontSize="10" fill="#64748b">Новосибирск</text>
+                    <g id="siberia-west">
+                      <path d="M 380 195 L 420 185 L 460 190 L 485 210 L 480 235 L 455 250 L 420 245 L 390 230 Z" 
+                        fill="#dbeafe" stroke="#0284c7" strokeWidth="1.5" opacity="0.8" />
+                      <text x="440" y="220" fontSize="8" fill="#0369a1" textAnchor="middle">Зап. Сибирь</text>
+                    </g>
                     
-                    <circle cx="680" cy="270" r="3" fill="#94a3b8" opacity="0.5" />
-                    <text x="680" y="260" textAnchor="middle" fontSize="10" fill="#64748b">Владивосток</text>
+                    <g id="siberia-central">
+                      <path d="M 485 210 L 525 200 L 565 205 L 590 225 L 585 250 L 560 265 L 525 260 L 495 245 Z" 
+                        fill="#e0f2fe" stroke="#0284c7" strokeWidth="1.5" opacity="0.8" />
+                      <text x="540" y="235" fontSize="8" fill="#0369a1" textAnchor="middle">Центр. Сибирь</text>
+                    </g>
                     
-                    <line x1="50" y1="250" x2="750" y2="250" stroke="#cbd5e1" strokeWidth="1" strokeDasharray="5,5" opacity="0.4" />
-                    <line x1="400" y1="130" x2="400" y2="350" stroke="#cbd5e1" strokeWidth="1" strokeDasharray="5,5" opacity="0.4" />
+                    <g id="far-east">
+                      <path d="M 590 225 L 630 215 L 670 220 L 700 240 L 695 265 L 670 280 L 635 275 L 605 260 Z" 
+                        fill="#dbeafe" stroke="#0284c7" strokeWidth="1.5" opacity="0.8" />
+                      <text x="650" y="250" fontSize="8" fill="#0369a1" textAnchor="middle">Дальний Восток</text>
+                    </g>
+                    
+                    <g id="north-west">
+                      <path d="M 100 150 L 135 140 L 165 145 L 180 165 L 175 185 L 150 195 L 120 190 L 105 170 Z" 
+                        fill="#e0f2fe" stroke="#0284c7" strokeWidth="1.5" opacity="0.8" />
+                      <text x="140" y="170" fontSize="8" fill="#0369a1" textAnchor="middle">С-Запад</text>
+                    </g>
+                    
+                    <g id="south">
+                      <path d="M 200 245 L 235 240 L 270 250 L 290 270 L 280 290 L 250 300 L 215 295 L 195 275 Z" 
+                        fill="#dbeafe" stroke="#0284c7" strokeWidth="1.5" opacity="0.8" />
+                      <text x="245" y="275" fontSize="8" fill="#0369a1" textAnchor="middle">Юг России</text>
+                    </g>
+                    
+                    <g id="north">
+                      <path d="M 250 130 L 300 120 L 350 125 L 390 140 L 430 145 L 470 150 L 500 155 L 520 145 L 500 130 L 460 120 L 410 115 L 360 110 L 310 105 L 270 115 Z" 
+                        fill="#e0f2fe" stroke="#0284c7" strokeWidth="1.5" opacity="0.8" />
+                      <text x="385" y="130" fontSize="8" fill="#0369a1" textAnchor="middle">Север России</text>
+                    </g>
+                    
+                    <g id="sakhalin">
+                      <path d="M 710 260 L 720 255 L 725 270 L 720 285 L 710 280 Z" 
+                        fill="#dbeafe" stroke="#0284c7" strokeWidth="1.5" opacity="0.8" />
+                    </g>
                     
                     {objects.map((obj) => (
                       <g key={obj.id}>
