@@ -1,54 +1,43 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useNavigate } from "react-router-dom";
 import Icon from "@/components/ui/icon";
-import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaflet';
-import 'leaflet/dist/leaflet.css';
-import L from 'leaflet';
-
-// Fix for default marker icon in React-Leaflet
-import markerIcon from 'leaflet/dist/images/marker-icon.png';
-import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png';
-import markerShadow from 'leaflet/dist/images/marker-shadow.png';
-
-delete (L.Icon.Default.prototype as any)._getIconUrl;
-L.Icon.Default.mergeOptions({
-  iconRetinaUrl: markerIcon2x,
-  iconUrl: markerIcon,
-  shadowUrl: markerShadow,
-});
 
 interface ObjectMarker {
   id: number;
   name: string;
-  position: [number, number];
+  x: number;
+  y: number;
   description?: string;
 }
 
 const ObjectsMap = () => {
   const navigate = useNavigate();
+  const mapRef = useRef<SVGSVGElement>(null);
   const [objects, setObjects] = useState<ObjectMarker[]>([
-    { id: 1, name: 'Карьер "Северный"', position: [55.7558, 37.6173], description: 'Добыча угля, 2 млн тонн/год' },
-    { id: 2, name: 'ОФ "Центральная"', position: [56.8389, 60.6057], description: 'Обогащение железной руды' },
-    { id: 3, name: 'Шахта "Восточная"', position: [53.9007, 27.5590], description: 'Подземная добыча' },
+    { id: 1, name: 'Карьер "Северный"', x: 300, y: 150, description: 'Добыча угля, 2 млн тонн/год' },
+    { id: 2, name: 'ОФ "Центральная"', x: 450, y: 200, description: 'Обогащение железной руды' },
+    { id: 3, name: 'Шахта "Восточная"', x: 600, y: 250, description: 'Подземная добыча' },
   ]);
   const [newObjectName, setNewObjectName] = useState('');
   const [newObjectDescription, setNewObjectDescription] = useState('');
-  const [selectedPosition, setSelectedPosition] = useState<[number, number] | null>(null);
+  const [selectedPosition, setSelectedPosition] = useState<{ x: number; y: number } | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [hoveredObject, setHoveredObject] = useState<number | null>(null);
 
-  const MapClickHandler = () => {
-    useMapEvents({
-      click(e) {
-        setSelectedPosition([e.latlng.lat, e.latlng.lng]);
-        setIsDialogOpen(true);
-      },
-    });
-    return null;
+  const handleMapClick = (e: React.MouseEvent<SVGSVGElement>) => {
+    if (!mapRef.current) return;
+    
+    const rect = mapRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    
+    setSelectedPosition({ x, y });
+    setIsDialogOpen(true);
   };
 
   const handleAddObject = () => {
@@ -56,7 +45,8 @@ const ObjectsMap = () => {
       const newObject: ObjectMarker = {
         id: Date.now(),
         name: newObjectName,
-        position: selectedPosition,
+        x: selectedPosition.x,
+        y: selectedPosition.y,
         description: newObjectDescription
       };
       setObjects([...objects, newObject]);
@@ -114,39 +104,101 @@ const ObjectsMap = () => {
         <div className="grid lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2">
             <Card>
-              <CardContent className="p-0">
-                <div className="h-[600px] rounded-lg overflow-hidden">
-                  <MapContainer
-                    center={[55.7558, 37.6173]}
-                    zoom={5}
-                    style={{ height: '100%', width: '100%' }}
+              <CardContent className="p-4">
+                <div className="relative bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg overflow-hidden border-2 border-primary/20">
+                  <svg
+                    ref={mapRef}
+                    viewBox="0 0 800 500"
+                    className="w-full h-auto cursor-crosshair"
+                    onClick={handleMapClick}
                   >
-                    <TileLayer
-                      attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                    <rect width="800" height="500" fill="url(#mapGradient)" />
+                    <defs>
+                      <linearGradient id="mapGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style={{ stopColor: '#e0f2fe', stopOpacity: 1 }} />
+                        <stop offset="100%" style={{ stopColor: '#bae6fd', stopOpacity: 1 }} />
+                      </linearGradient>
+                    </defs>
+                    
+                    <path
+                      d="M 100 100 L 700 100 L 700 150 L 650 200 L 700 250 L 700 400 L 600 450 L 400 450 L 300 400 L 200 400 L 150 350 L 100 300 Z"
+                      fill="hsl(var(--primary))"
+                      opacity="0.1"
+                      stroke="hsl(var(--primary))"
+                      strokeWidth="2"
                     />
-                    <MapClickHandler />
+                    
+                    <text x="400" y="280" textAnchor="middle" fill="hsl(var(--primary))" fontSize="48" fontWeight="bold" opacity="0.1">
+                      РОССИЯ
+                    </text>
+                    
+                    <line x1="100" y1="250" x2="700" y2="250" stroke="hsl(var(--primary))" strokeWidth="1" strokeDasharray="5,5" opacity="0.3" />
+                    <line x1="400" y1="100" x2="400" y2="450" stroke="hsl(var(--primary))" strokeWidth="1" strokeDasharray="5,5" opacity="0.3" />
+                    
                     {objects.map((obj) => (
-                      <Marker key={obj.id} position={obj.position}>
-                        <Popup>
-                          <div className="p-2">
-                            <h3 className="font-semibold mb-1">{obj.name}</h3>
-                            {obj.description && (
-                              <p className="text-sm text-muted-foreground mb-2">{obj.description}</p>
-                            )}
-                            <Button
-                              size="sm"
-                              variant="destructive"
-                              onClick={() => handleDeleteObject(obj.id)}
+                      <g key={obj.id}>
+                        <circle
+                          cx={obj.x}
+                          cy={obj.y}
+                          r={hoveredObject === obj.id ? 12 : 8}
+                          fill="hsl(var(--secondary))"
+                          stroke="white"
+                          strokeWidth="2"
+                          onMouseEnter={() => setHoveredObject(obj.id)}
+                          onMouseLeave={() => setHoveredObject(null)}
+                          className="cursor-pointer transition-all"
+                          style={{ filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))' }}
+                        />
+                        {hoveredObject === obj.id && (
+                          <g>
+                            <rect
+                              x={obj.x + 15}
+                              y={obj.y - 25}
+                              width="200"
+                              height={obj.description ? 60 : 40}
+                              fill="white"
+                              stroke="hsl(var(--primary))"
+                              strokeWidth="2"
+                              rx="4"
+                              style={{ filter: 'drop-shadow(0 2px 8px rgba(0,0,0,0.15))' }}
+                            />
+                            <text
+                              x={obj.x + 25}
+                              y={obj.y - 5}
+                              fill="hsl(var(--primary))"
+                              fontSize="14"
+                              fontWeight="bold"
                             >
-                              <Icon name="Trash2" size={14} className="mr-1" />
-                              Удалить
-                            </Button>
-                          </div>
-                        </Popup>
-                      </Marker>
+                              {obj.name}
+                            </text>
+                            {obj.description && (
+                              <text
+                                x={obj.x + 25}
+                                y={obj.y + 15}
+                                fill="hsl(var(--muted-foreground))"
+                                fontSize="12"
+                              >
+                                {obj.description.substring(0, 25)}...
+                              </text>
+                            )}
+                            <foreignObject x={obj.x + 165} y={obj.y - 20} width="40" height="30">
+                              <Button
+                                size="sm"
+                                variant="ghost"
+                                className="h-6 w-6 p-0"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  handleDeleteObject(obj.id);
+                                }}
+                              >
+                                <Icon name="X" size={12} />
+                              </Button>
+                            </foreignObject>
+                          </g>
+                        )}
+                      </g>
                     ))}
-                  </MapContainer>
+                  </svg>
                 </div>
               </CardContent>
             </Card>
@@ -176,7 +228,7 @@ const ObjectsMap = () => {
                           variant="ghost"
                           onClick={() => handleDeleteObject(obj.id)}
                         >
-                          <Icon name="X" size={14} />
+                          <Icon name="Trash2" size={14} />
                         </Button>
                       </div>
                     </div>
@@ -217,11 +269,6 @@ const ObjectsMap = () => {
                 onChange={(e) => setNewObjectDescription(e.target.value)}
               />
             </div>
-            {selectedPosition && (
-              <p className="text-sm text-muted-foreground">
-                Координаты: {selectedPosition[0].toFixed(4)}, {selectedPosition[1].toFixed(4)}
-              </p>
-            )}
           </div>
           <div className="flex gap-2 justify-end">
             <Button variant="outline" onClick={() => setIsDialogOpen(false)}>
