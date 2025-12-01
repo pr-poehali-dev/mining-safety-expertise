@@ -44,6 +44,16 @@ const IndexHero = () => {
                   <span className="text-primary font-bold">•</span>
                   <span>
                     <strong className="text-foreground">
+                      Технологические решения:
+                    </strong>{" "}
+                    внедрение передовых технологий для повышения эффективности и
+                    безопасности горных работ.
+                  </span>
+                </li>
+                <li className="flex gap-3">
+                  <span className="text-primary font-bold">•</span>
+                  <span>
+                    <strong className="text-foreground">
                       Экспертиза промышленной безопасности:
                     </strong>{" "}
                     экспертиза документации на техническое перевооружение,
