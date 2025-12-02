@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import IndexHeader from '@/components/index/IndexHeader';
+import IndexFooter from '@/components/index/IndexFooter';
 import MapControls from '@/components/objects-map/MapControls';
 import MapCanvas from '@/components/objects-map/MapCanvas';
 import MapDialogs, { ObjectMarker } from '@/components/objects-map/MapDialogs';
@@ -196,6 +197,7 @@ const ObjectsMap = () => {
           getTypeColor={getTypeColor}
         />
       </main>
+      <IndexFooter />
     </div>
   );
 };

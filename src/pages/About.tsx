@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import Icon from "@/components/ui/icon";
 import IndexHeader from '@/components/index/IndexHeader';
+import IndexFooter from '@/components/index/IndexFooter';
 
 const About = () => {
   const navigate = useNavigate();
@@ -43,6 +44,7 @@ const About = () => {
           </ul>
         </div>
       </main>
+      <IndexFooter />
     </div>
   );
 };

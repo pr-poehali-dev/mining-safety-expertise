@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import Icon from "@/components/ui/icon";
 import IndexHeader from '@/components/index/IndexHeader';
+import IndexFooter from '@/components/index/IndexFooter';
 
 const Services = () => {
 
@@ -59,6 +60,7 @@ const Services = () => {
           ))}
         </div>
       </main>
+      <IndexFooter />
     </div>
   );
 };

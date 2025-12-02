@@ -3,6 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import Icon from "@/components/ui/icon";
 import IndexHeader from '@/components/index/IndexHeader';
+import IndexFooter from '@/components/index/IndexFooter';
 
 const News = () => {
 
@@ -88,6 +89,7 @@ const News = () => {
           ))}
         </div>
       </main>
+      <IndexFooter />
     </div>
   );
 };

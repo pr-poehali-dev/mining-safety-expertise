@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import Icon from "@/components/ui/icon";
 import IndexHeader from '@/components/index/IndexHeader';
+import IndexFooter from '@/components/index/IndexFooter';
 
 const Certificates = () => {
 
@@ -51,6 +52,7 @@ const Certificates = () => {
           ))}
         </div>
       </main>
+      <IndexFooter />
     </div>
   );
 };

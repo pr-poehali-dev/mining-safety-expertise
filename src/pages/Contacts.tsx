@@ -1,6 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Icon from "@/components/ui/icon";
 import IndexHeader from "@/components/index/IndexHeader";
+import IndexFooter from "@/components/index/IndexFooter";
 
 const Contacts = () => {
   return (
@@ -77,6 +78,7 @@ const Contacts = () => {
           </Card>
         </div>
       </main>
+      <IndexFooter />
     </div>
   );
 };
