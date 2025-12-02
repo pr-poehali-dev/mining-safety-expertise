@@ -38,7 +38,6 @@ const IndexFooter = () => {
             <h3 className="font-heading font-semibold mb-4">Компания</h3>
             <ul className="space-y-2 text-sm text-white/80">
               <li>О нас</li>
-              <li>Портфолио</li>
               <li>Вакансии</li>
               <li>Новости</li>
             </ul>
