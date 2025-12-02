@@ -2,36 +2,18 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import Icon from '@/components/ui/icon';
+import { searchSiteContent } from '@/utils/searchContent';
 
 const IndexHeader = () => {
   const navigate = useNavigate();
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
 
-  const searchablePages = [
-    { title: 'Главная', path: '/', keywords: ['главная', 'home', 'спэк', 'компания'] },
-    { title: 'О компании', path: '/about', keywords: ['о компании', 'about', 'история', 'команда', 'сотрудники'] },
-    { title: 'Услуги', path: '/services', keywords: ['услуги', 'services', 'проектирование', 'экспертиза', 'изыскания'] },
-    { title: 'Проектирование горных производств', path: '/services/mining', keywords: ['проектирование', 'горные', 'производства', 'карьер'] },
-    { title: 'Экспертиза промышленной безопасности', path: '/services/expertise', keywords: ['экспертиза', 'безопасность', 'промышленная', 'опо'] },
-    { title: 'Инженерные изыскания', path: '/services/survey', keywords: ['изыскания', 'геология', 'геодезия', 'исследования'] },
-    { title: 'Техническое сопровождение', path: '/services/support', keywords: ['сопровождение', 'надзор', 'авторский', 'консультации'] },
-    { title: 'Квалификация', path: '/certificates', keywords: ['квалификация', 'сертификаты', 'лицензии', 'допуски'] },
-    { title: 'Новости', path: '/news', keywords: ['новости', 'news', 'события', 'информация'] },
-    { title: 'Вакансии', path: '/vacancies', keywords: ['вакансии', 'работа', 'карьера', 'вакансии'] },
-    { title: 'Карта объектов', path: '/objects-map', keywords: ['карта', 'объекты', 'проекты', 'реализованные'] },
-    { title: 'Контакты', path: '/contacts', keywords: ['контакты', 'contacts', 'телефон', 'адрес', 'связь'] }
-  ];
-
-  const filteredPages = searchQuery.trim() 
-    ? searchablePages.filter(page => {
-        const query = searchQuery.toLowerCase();
-        return page.title.toLowerCase().includes(query) || 
-               page.keywords.some(keyword => keyword.includes(query));
-      })
-    : searchablePages;
+  const searchResults = useMemo(() => {
+    return searchSiteContent(searchQuery);
+  }, [searchQuery]);
 
   const handleSearch = (path: string) => {
     setIsSearchOpen(false);
@@ -137,20 +119,28 @@ const IndexHeader = () => {
             </div>
             <div className="text-sm">
               <p className="mb-2 font-medium text-muted-foreground">
-                {searchQuery.trim() ? `Найдено результатов: ${filteredPages.length}` : 'Быстрые ссылки:'}
+                {searchQuery.trim() ? `Найдено результатов: ${searchResults.length}` : 'Все разделы сайта:'}
               </p>
-              <div className="grid grid-cols-2 gap-2 max-h-96 overflow-y-auto">
-                {filteredPages.map((page) => (
+              <div className="space-y-2 max-h-96 overflow-y-auto">
+                {searchResults.map((result) => (
                   <button
-                    key={page.path}
-                    onClick={() => handleSearch(page.path)}
-                    className="text-left p-2 rounded hover:bg-accent transition-colors"
+                    key={result.path}
+                    onClick={() => handleSearch(result.path)}
+                    className="text-left p-3 rounded hover:bg-accent transition-colors w-full border"
                   >
-                    {page.title}
+                    <div className="font-medium mb-1 flex items-center gap-2">
+                      <Icon name="FileText" size={16} className="text-primary" />
+                      {result.title}
+                    </div>
+                    {result.excerpt && (
+                      <div className="text-xs text-muted-foreground line-clamp-2">
+                        {result.excerpt}
+                      </div>
+                    )}
                   </button>
                 ))}
               </div>
-              {filteredPages.length === 0 && (
+              {searchResults.length === 0 && searchQuery.trim() && (
                 <p className="text-center py-4 text-muted-foreground">
                   Ничего не найдено. Попробуйте другой запрос.
                 </p>
