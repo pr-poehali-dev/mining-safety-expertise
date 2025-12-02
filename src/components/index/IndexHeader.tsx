@@ -23,9 +23,9 @@ const IndexHeader = () => {
               className="h-full w-full object-contain"
             />
           </div>
-          <div className="hidden lg:flex flex-col items-start">
-            <span className="font-heading font-bold leading-tight text-white text-sm">Сибирская Проектная</span>
-            <span className="font-heading font-bold text-white/90 leading-tight text-sm">Экспертная Компания</span>
+          <div className="hidden lg:flex flex-col">
+            <span className="font-heading font-bold leading-tight text-white text-sm text-left">Сибирская Проектная</span>
+            <span className="font-heading font-bold text-white/90 leading-tight text-sm text-left">Экспертная Компания</span>
           </div>
         </button>
         <nav className="hidden md:flex items-center gap-6 lg:gap-8 flex-1 justify-center">
