@@ -9,7 +9,10 @@ const IndexFooter = () => {
       <div className="container">
         <div className="grid md:grid-cols-4 gap-8 mb-8">
           <div>
-            <div className="flex items-center gap-3 mb-4">
+            <button
+              onClick={() => navigate('/')}
+              className="flex items-center gap-3 mb-4 transition-opacity hover:opacity-80"
+            >
               <img
                 src="https://cdn.poehali.dev/files/35047487-09a0-4e51-86f1-5e184b7d5afa.png"
                 alt="СПЭК"
@@ -23,7 +26,7 @@ const IndexFooter = () => {
                   Экспертная Компания
                 </span>
               </div>
-            </div>
+            </button>
             <p className="text-white/80 text-sm">
               Предоставление комплексных инжиниринговых услуг для предприятий
               горной промышленности
