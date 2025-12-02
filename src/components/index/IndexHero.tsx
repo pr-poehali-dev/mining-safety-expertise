@@ -100,9 +100,7 @@ const IndexHero = () => {
                 <li className="flex gap-3">
                   <span className="text-primary font-bold">•</span>
                   <span>
-                    <strong className="text-foreground">
-                      Опыт и экспертиза:
-                    </strong>{" "}
+                    <strong className="text-foreground">Опыт:</strong>{" "}
                     многолетний опыт работы в горнодобывающей отрасли и глубокие
                     знания в области инжиниринга.
                   </span>
