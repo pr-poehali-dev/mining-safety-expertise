@@ -1,6 +1,9 @@
 import { Separator } from "@/components/ui/separator";
+import { useNavigate } from "react-router-dom";
 
 const IndexFooter = () => {
+  const navigate = useNavigate();
+
   return (
     <footer className="bg-primary text-white py-8">
       <div className="container">
@@ -27,19 +30,53 @@ const IndexFooter = () => {
             </p>
           </div>
           <div>
-            <h3 className="font-heading font-semibold mb-4">Услуги</h3>
+            <h3 className="font-heading font-semibold mb-4">Навигация</h3>
             <ul className="space-y-2 text-sm text-white/80">
-              <li>Проектирование</li>
-              <li>Экспертиза ПБ</li>
-              <li>Инженерные изыскания</li>
+              <li>
+                <button onClick={() => navigate('/')} className="hover:text-white transition-colors">
+                  Главная
+                </button>
+              </li>
+              <li>
+                <button onClick={() => navigate('/about')} className="hover:text-white transition-colors">
+                  О компании
+                </button>
+              </li>
+              <li>
+                <button onClick={() => navigate('/services')} className="hover:text-white transition-colors">
+                  Услуги
+                </button>
+              </li>
+              <li>
+                <button onClick={() => navigate('/certificates')} className="hover:text-white transition-colors">
+                  Квалификация
+                </button>
+              </li>
             </ul>
           </div>
           <div>
-            <h3 className="font-heading font-semibold mb-4">Компания</h3>
+            <h3 className="font-heading font-semibold mb-4">Информация</h3>
             <ul className="space-y-2 text-sm text-white/80">
-              <li>О нас</li>
-              <li>Вакансии</li>
-              <li>Новости</li>
+              <li>
+                <button onClick={() => navigate('/news')} className="hover:text-white transition-colors">
+                  Новости
+                </button>
+              </li>
+              <li>
+                <button onClick={() => navigate('/vacancies')} className="hover:text-white transition-colors">
+                  Вакансии
+                </button>
+              </li>
+              <li>
+                <button onClick={() => navigate('/objects-map')} className="hover:text-white transition-colors">
+                  Карта объектов
+                </button>
+              </li>
+              <li>
+                <button onClick={() => navigate('/contacts')} className="hover:text-white transition-colors">
+                  Контакты
+                </button>
+              </li>
             </ul>
           </div>
           <div>
