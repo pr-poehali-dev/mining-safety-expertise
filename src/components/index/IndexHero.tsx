@@ -51,9 +51,7 @@ const IndexHero = () => {
                 <li className="flex gap-3">
                   <span className="text-primary font-bold">•</span>
                   <span>
-                    <strong className="text-foreground">
-                      Проектирование и инжиниринг:
-                    </strong>{" "}
+                    <strong className="text-foreground">Проектирование:</strong>{" "}
                     от разработки концепции до реализации проектов в
                     горнодобывающей отраслит.
                   </span>
