@@ -8,6 +8,36 @@ import Icon from '@/components/ui/icon';
 const IndexHeader = () => {
   const navigate = useNavigate();
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const searchablePages = [
+    { title: 'Главная', path: '/', keywords: ['главная', 'home', 'спэк', 'компания'] },
+    { title: 'О компании', path: '/about', keywords: ['о компании', 'about', 'история', 'команда', 'сотрудники'] },
+    { title: 'Услуги', path: '/services', keywords: ['услуги', 'services', 'проектирование', 'экспертиза', 'изыскания'] },
+    { title: 'Проектирование горных производств', path: '/services/mining', keywords: ['проектирование', 'горные', 'производства', 'карьер'] },
+    { title: 'Экспертиза промышленной безопасности', path: '/services/expertise', keywords: ['экспертиза', 'безопасность', 'промышленная', 'опо'] },
+    { title: 'Инженерные изыскания', path: '/services/survey', keywords: ['изыскания', 'геология', 'геодезия', 'исследования'] },
+    { title: 'Техническое сопровождение', path: '/services/support', keywords: ['сопровождение', 'надзор', 'авторский', 'консультации'] },
+    { title: 'Квалификация', path: '/certificates', keywords: ['квалификация', 'сертификаты', 'лицензии', 'допуски'] },
+    { title: 'Новости', path: '/news', keywords: ['новости', 'news', 'события', 'информация'] },
+    { title: 'Вакансии', path: '/vacancies', keywords: ['вакансии', 'работа', 'карьера', 'вакансии'] },
+    { title: 'Карта объектов', path: '/objects-map', keywords: ['карта', 'объекты', 'проекты', 'реализованные'] },
+    { title: 'Контакты', path: '/contacts', keywords: ['контакты', 'contacts', 'телефон', 'адрес', 'связь'] }
+  ];
+
+  const filteredPages = searchQuery.trim() 
+    ? searchablePages.filter(page => {
+        const query = searchQuery.toLowerCase();
+        return page.title.toLowerCase().includes(query) || 
+               page.keywords.some(keyword => keyword.includes(query));
+      })
+    : searchablePages;
+
+  const handleSearch = (path: string) => {
+    setIsSearchOpen(false);
+    setSearchQuery('');
+    navigate(path);
+  };
 
   return (
     <header className="sticky top-0 z-20 w-full bg-primary shadow-sm">
@@ -101,66 +131,30 @@ const IndexHeader = () => {
                 placeholder="Введите запрос..."
                 className="pl-10"
                 autoFocus
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
               />
             </div>
-            <div className="text-sm text-muted-foreground">
-              <p className="mb-2 font-medium">Быстрые ссылки:</p>
-              <div className="grid grid-cols-2 gap-2">
-                <button
-                  onClick={() => {
-                    setIsSearchOpen(false);
-                    navigate('/services');
-                  }}
-                  className="text-left p-2 rounded hover:bg-accent transition-colors"
-                >
-                  Услуги компании
-                </button>
-                <button
-                  onClick={() => {
-                    setIsSearchOpen(false);
-                    navigate('/about');
-                  }}
-                  className="text-left p-2 rounded hover:bg-accent transition-colors"
-                >
-                  О компании
-                </button>
-                <button
-                  onClick={() => {
-                    setIsSearchOpen(false);
-                    navigate('/certificates');
-                  }}
-                  className="text-left p-2 rounded hover:bg-accent transition-colors"
-                >
-                  Квалификация
-                </button>
-                <button
-                  onClick={() => {
-                    setIsSearchOpen(false);
-                    navigate('/objects-map');
-                  }}
-                  className="text-left p-2 rounded hover:bg-accent transition-colors"
-                >
-                  Карта объектов
-                </button>
-                <button
-                  onClick={() => {
-                    setIsSearchOpen(false);
-                    navigate('/vacancies');
-                  }}
-                  className="text-left p-2 rounded hover:bg-accent transition-colors"
-                >
-                  Вакансии
-                </button>
-                <button
-                  onClick={() => {
-                    setIsSearchOpen(false);
-                    navigate('/contacts');
-                  }}
-                  className="text-left p-2 rounded hover:bg-accent transition-colors"
-                >
-                  Контакты
-                </button>
+            <div className="text-sm">
+              <p className="mb-2 font-medium text-muted-foreground">
+                {searchQuery.trim() ? `Найдено результатов: ${filteredPages.length}` : 'Быстрые ссылки:'}
+              </p>
+              <div className="grid grid-cols-2 gap-2 max-h-96 overflow-y-auto">
+                {filteredPages.map((page) => (
+                  <button
+                    key={page.path}
+                    onClick={() => handleSearch(page.path)}
+                    className="text-left p-2 rounded hover:bg-accent transition-colors"
+                  >
+                    {page.title}
+                  </button>
+                ))}
               </div>
+              {filteredPages.length === 0 && (
+                <p className="text-center py-4 text-muted-foreground">
+                  Ничего не найдено. Попробуйте другой запрос.
+                </p>
+              )}
             </div>
           </div>
         </DialogContent>
