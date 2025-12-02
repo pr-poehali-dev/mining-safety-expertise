@@ -12,7 +12,10 @@ const IndexHeader = () => {
   return (
     <header className="sticky top-0 z-20 w-full bg-primary shadow-sm">
       <div className="container flex h-24 items-center gap-6">
-        <div className="flex items-center gap-4">
+        <button
+          onClick={() => navigate('/')}
+          className="flex items-center gap-4 transition-opacity hover:opacity-80"
+        >
           <div className="h-16 w-16 flex-shrink-0">
             <img 
               src="https://cdn.poehali.dev/files/35047487-09a0-4e51-86f1-5e184b7d5afa.png" 
@@ -24,7 +27,7 @@ const IndexHeader = () => {
             <span className="font-heading font-bold leading-tight text-white text-base">Сибирская Проектная</span>
             <span className="font-heading font-bold text-white/90 leading-tight text-base">Экспертная Компания</span>
           </div>
-        </div>
+        </button>
         <nav className="hidden md:flex items-center gap-6 lg:gap-8 flex-1 justify-center">
           <button
             onClick={() => navigate('/')}
