@@ -10,7 +10,7 @@ const IndexFooter = () => {
         <div className="grid md:grid-cols-4 gap-8 mb-8">
           <div>
             <button
-              onClick={() => navigate('/')}
+              onClick={() => navigate("/")}
               className="flex items-center gap-3 mb-4 transition-opacity hover:opacity-80"
             >
               <img
@@ -36,22 +36,34 @@ const IndexFooter = () => {
             <h3 className="font-heading font-semibold mb-4">Навигация</h3>
             <ul className="space-y-2 text-sm text-white/80">
               <li>
-                <button onClick={() => navigate('/')} className="hover:text-white transition-colors">
+                <button
+                  onClick={() => navigate("/")}
+                  className="hover:text-white transition-colors"
+                >
                   Главная
                 </button>
               </li>
               <li>
-                <button onClick={() => navigate('/about')} className="hover:text-white transition-colors">
+                <button
+                  onClick={() => navigate("/about")}
+                  className="hover:text-white transition-colors"
+                >
                   О компании
                 </button>
               </li>
               <li>
-                <button onClick={() => navigate('/services')} className="hover:text-white transition-colors">
+                <button
+                  onClick={() => navigate("/services")}
+                  className="hover:text-white transition-colors"
+                >
                   Услуги
                 </button>
               </li>
               <li>
-                <button onClick={() => navigate('/certificates')} className="hover:text-white transition-colors">
+                <button
+                  onClick={() => navigate("/certificates")}
+                  className="hover:text-white transition-colors"
+                >
                   Квалификация
                 </button>
               </li>
@@ -61,22 +73,34 @@ const IndexFooter = () => {
             <h3 className="font-heading font-semibold mb-4">Информация</h3>
             <ul className="space-y-2 text-sm text-white/80">
               <li>
-                <button onClick={() => navigate('/news')} className="hover:text-white transition-colors">
+                <button
+                  onClick={() => navigate("/news")}
+                  className="hover:text-white transition-colors"
+                >
                   Новости
                 </button>
               </li>
               <li>
-                <button onClick={() => navigate('/vacancies')} className="hover:text-white transition-colors">
+                <button
+                  onClick={() => navigate("/vacancies")}
+                  className="hover:text-white transition-colors"
+                >
                   Вакансии
                 </button>
               </li>
               <li>
-                <button onClick={() => navigate('/objects-map')} className="hover:text-white transition-colors">
+                <button
+                  onClick={() => navigate("/objects-map")}
+                  className="hover:text-white transition-colors"
+                >
                   Карта объектов
                 </button>
               </li>
               <li>
-                <button onClick={() => navigate('/contacts')} className="hover:text-white transition-colors">
+                <button
+                  onClick={() => navigate("/contacts")}
+                  className="hover:text-white transition-colors"
+                >
                   Контакты
                 </button>
               </li>
