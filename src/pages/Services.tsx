@@ -3,29 +3,35 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import Icon from "@/components/ui/icon";
 import IndexHeader from '@/components/index/IndexHeader';
 import IndexFooter from '@/components/index/IndexFooter';
+import { useNavigate } from 'react-router-dom';
 
 const Services = () => {
+  const navigate = useNavigate();
 
   const services = [
     {
       title: "Проектирование горных производств",
       description: "Разработка проектной документации для горнодобывающих предприятий",
-      icon: "Mountain"
+      icon: "Mountain",
+      link: "/services/mining"
     },
     {
       title: "Экспертиза промышленной безопасности",
       description: "Комплексная оценка соответствия требованиям промышленной безопасности",
-      icon: "ShieldCheck"
+      icon: "ShieldCheck",
+      link: "/services/expertise"
     },
     {
       title: "Инженерные изыскания",
       description: "Геологические и геодезические изыскания для строительства",
-      icon: "Search"
+      icon: "Search",
+      link: "/services/survey"
     },
     {
       title: "Техническое сопровождение",
       description: "Авторский надзор и консультационная поддержка проектов",
-      icon: "Headphones"
+      icon: "Headphones",
+      link: "/services/support"
     }
   ];
 
@@ -52,7 +58,11 @@ const Services = () => {
                 <CardDescription className="text-base">{service.description}</CardDescription>
               </CardHeader>
               <CardContent>
-                <Button variant="link" className="p-0 h-auto text-primary">
+                <Button 
+                  variant="link" 
+                  className="p-0 h-auto text-primary"
+                  onClick={() => navigate(service.link)}
+                >
                   Подробнее <Icon name="ArrowRight" size={16} className="ml-2" />
                 </Button>
               </CardContent>
