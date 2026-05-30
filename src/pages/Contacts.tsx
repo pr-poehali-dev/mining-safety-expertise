@@ -40,7 +40,7 @@ const Contacts = () => {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-lg">655943@mail.ru</p>
+              <p className="text-lg">info@sibproexpcom.ru</p>
               <p className="text-sm text-muted-foreground mt-2">
                 Ответим в течение 24 часов
               </p>
