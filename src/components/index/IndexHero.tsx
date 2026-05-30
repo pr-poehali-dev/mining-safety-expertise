@@ -78,15 +78,6 @@ const IndexHero = () => {
                     экспертные консультации на всех этапах реализации проектов.
                   </span>
                 </li>
-                <li className="flex gap-3">
-                  <span className="text-primary font-bold">•</span>
-                  <span>
-                    <strong className="text-foreground">
-                      Консультации и поддержка:
-                    </strong>{" "}
-                    экспертные консультации на всех этапах реализации проектов.
-                  </span>
-                </li>
               </ul>
             </div>
 
